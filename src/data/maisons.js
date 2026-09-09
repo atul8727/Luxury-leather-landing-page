@@ -1,0 +1,16 @@
+export const MAISONS = [
+  { id: 1, name: "Burberry", image: "/images/maisons/brand-1.jpg" },
+  { id: 2, name: "Christian Dior", image: "/images/maisons/brand-2.jpg" },
+  { id: 3, name: "D&G", image: "/images/maisons/brand-3.jpg" },
+  { id: 4, name: "Dr. Marten", image: "/images/maisons/brand-4.jpg" },
+  { id: 5, name: "Ferragamo", image: "/images/maisons/brand-5.jpg" },
+  { id: 6, name: "Givenchy", image: "/images/maisons/brand-6.jpg" },
+  { id: 7, name: "Gucci", image: "/images/maisons/brand-7.jpg" },
+  { id: 8, name: "Jimmy Choo", image: "/images/maisons/brand-8.jpg" },
+  { id: 9, name: "Loake", image: "/images/maisons/brand-9.jpg" },
+  { id: 10, name: "Louboutin", image: "/images/maisons/brand-10.jpg" },
+  { id: 11, name: "Louis Vuitton", image: "/images/maisons/brand-11.jpg" },
+  { id: 12, name: "M. Margiela", image: "/images/maisons/brand-12.jpg" },
+  { id: 13, name: "R.M. Williams", image: "/images/maisons/brand-13.jpg" },
+  { id: 14, name: "St. Weitzman", image: "/images/maisons/brand-14.jpg" },
+];
