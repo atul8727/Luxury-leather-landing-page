@@ -41,7 +41,7 @@ export default function Process() {
                   sizes="(min-width: 1024px) 22vw, 45vw"
                   className="object-cover"
                 />
-                <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-cream/90 font-display text-[14px] text-ink">
+                <span className="absolute left-0 top-0 flex h-11 w-11 items-center justify-center rounded-tl-[20px] rounded-br-[16px] bg-[#69483C] font-display text-[16px] font-semibold text-[#FFE6D1]">
                   {step.number}
                 </span>
               </div>
