@@ -2,13 +2,12 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronsLeftRight } from "lucide-react";
 
 export default function BeforeAfterCard({ item }) {
   const [position, setPosition] = useState(50);
   const [width, setWidth] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
-  const dragging = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -31,17 +30,50 @@ export default function BeforeAfterCard({ item }) {
     setPosition(Math.min(100, Math.max(0, pct)));
   }, []);
 
-  const onPointerDown = (e) => {
-    dragging.current = true;
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-    updateFromClientX(e.clientX);
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMove = (e) => {
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
+      if (clientX != null) updateFromClientX(clientX);
+    };
+    const handleUp = () => setIsDragging(false);
+
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    window.addEventListener("touchmove", handleMove, { passive: true });
+    window.addEventListener("touchend", handleUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleUp);
+    };
+  }, [isDragging, updateFromClientX]);
+
+  const startDrag = (clientX) => {
+    setIsDragging(true);
+    updateFromClientX(clientX);
   };
-  const onPointerMove = (e) => {
-    if (!dragging.current) return;
-    updateFromClientX(e.clientX);
+
+  const onHandlePointerDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startDrag(e.clientX);
   };
-  const onPointerUp = () => {
-    dragging.current = false;
+  const onHandleTouchStart = (e) => {
+    e.stopPropagation();
+    startDrag(e.touches[0].clientX);
+  };
+
+  const onContainerPointerDown = (e) => {
+    startDrag(e.clientX);
+  };
+  const onContainerTouchStart = (e) => {
+    startDrag(e.touches[0].clientX);
   };
 
   const onKeyDown = (e) => {
@@ -50,13 +82,12 @@ export default function BeforeAfterCard({ item }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-[22px] bg-cream p-3 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+    <div className="flex flex-col gap-4 rounded-[22px] bg-white p-3 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
       <div
         ref={containerRef}
-        className="relative aspect-[4/5] w-full touch-none overflow-hidden rounded-[16px] select-none bg-ink/5"
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
+        className="relative aspect-[4/5] w-full touch-none overflow-hidden rounded-[16px] select-none bg-white"
+        onPointerDown={onContainerPointerDown}
+        onTouchStart={onContainerTouchStart}
       >
         {/* AFTER image - always full width, sits underneath */}
         <div className="absolute inset-0">
@@ -65,7 +96,7 @@ export default function BeforeAfterCard({ item }) {
             alt={`${item.title} - after restoration`}
             fill
             sizes="(min-width: 1024px) 30vw, 90vw"
-            className="object-cover"
+            className="pointer-events-none object-cover"
             draggable={false}
           />
         </div>
@@ -81,7 +112,7 @@ export default function BeforeAfterCard({ item }) {
               alt={`${item.title} - before restoration`}
               fill
               sizes="(min-width: 1024px) 30vw, 90vw"
-              className="object-cover"
+              className="pointer-events-none object-cover"
               draggable={false}
             />
           </div>
@@ -95,12 +126,21 @@ export default function BeforeAfterCard({ item }) {
           After
         </span>
 
-        {/* Divider line + drag handle */}
+        {/* Divider Line + Handle — same Figma assets as Services cards */}
         <div
-          className="absolute inset-y-0 z-30 flex w-0 items-center justify-center"
+          className="absolute inset-y-0 z-30 -translate-x-1/2"
           style={{ left: `${position}%` }}
         >
-          <div className="absolute inset-y-0 w-[2px] bg-cream" />
+          <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+            <img
+              src="/icons/Line 2.png"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="h-full w-full select-none object-fill"
+            />
+          </div>
+
           <button
             type="button"
             aria-label="Drag to compare before and after"
@@ -109,11 +149,17 @@ export default function BeforeAfterCard({ item }) {
             aria-valuemin={0}
             aria-valuemax={100}
             tabIndex={0}
-            onPointerDown={onPointerDown}
+            onPointerDown={onHandlePointerDown}
+            onTouchStart={onHandleTouchStart}
             onKeyDown={onKeyDown}
-            className="relative flex h-11 w-11 -translate-x-1/2 cursor-ew-resize items-center justify-center rounded-full border border-ink/10 bg-cream text-ink shadow-lg transition-transform duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
           >
-            <ChevronsLeftRight size={18} strokeWidth={1.75} />
+            <img
+              src="/icons/Group 13.png"
+              alt=""
+              draggable={false}
+              className="h-10 w-10 select-none"
+            />
           </button>
         </div>
       </div>

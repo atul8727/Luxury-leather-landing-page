@@ -23,14 +23,14 @@ export default function Home() {
         {/* <About /> */}
         <Services />
         <BeforeAfter />
-        {/* <Cities />
-        <Maisons />
+         <Maisons />
+        {/* <Cities /> */}
         <Process />
         <Reviews />
         <MoreServices />
         <FAQ />
-        <CTA />
-        <Contact /> */}
+        {/* <CTA /> */}
+        {/* <Contact /> */}
       </main>
       <Footer />
       <PromoModal />

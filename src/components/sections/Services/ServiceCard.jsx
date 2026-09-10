@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function ServiceCard({ service, index }) {
@@ -10,8 +10,8 @@ export default function ServiceCard({ service, index }) {
 
   const [position, setPosition] = useState(50);
   const [width, setWidth] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
-  const dragging = useRef(false);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -34,17 +34,50 @@ export default function ServiceCard({ service, index }) {
     setPosition(Math.min(100, Math.max(0, pct)));
   }, []);
 
-  const onPointerDown = (e) => {
-    dragging.current = true;
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-    updateFromClientX(e.clientX);
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMove = (e) => {
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
+      if (clientX != null) updateFromClientX(clientX);
+    };
+    const handleUp = () => setIsDragging(false);
+
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    window.addEventListener("touchmove", handleMove, { passive: true });
+    window.addEventListener("touchend", handleUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleUp);
+    };
+  }, [isDragging, updateFromClientX]);
+
+  const startDrag = (clientX) => {
+    setIsDragging(true);
+    updateFromClientX(clientX);
   };
-  const onPointerMove = (e) => {
-    if (!dragging.current) return;
-    updateFromClientX(e.clientX);
+
+  const onHandlePointerDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startDrag(e.clientX);
   };
-  const onPointerUp = () => {
-    dragging.current = false;
+  const onHandleTouchStart = (e) => {
+    e.stopPropagation();
+    startDrag(e.touches[0].clientX);
+  };
+
+  const onContainerPointerDown = (e) => {
+    startDrag(e.clientX);
+  };
+  const onContainerTouchStart = (e) => {
+    startDrag(e.touches[0].clientX);
   };
 
   const onKeyDown = (e) => {
@@ -56,64 +89,80 @@ export default function ServiceCard({ service, index }) {
     <div className="grid grid-cols-1 items-start gap-8 py-12 sm:gap-12 lg:grid-cols-2 lg:gap-16 lg:py-16">
       <div
         ref={containerRef}
-        className={`relative aspect-[4/3] w-full touch-none overflow-hidden rounded-2xl bg-white select-none ${
+        className={`relative aspect-[4/3] w-full touch-none overflow-hidden bg-white select-none ${
           reversed ? "lg:order-2" : ""
         }`}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerLeave={onPointerUp}
+        onPointerDown={onContainerPointerDown}
+        onTouchStart={onContainerTouchStart}
       >
-        {/* After Image (Background) */}
+        {/* After Image — full background, revealed on the RIGHT of the line */}
         <div className="absolute inset-0">
           <Image
             src={service.after}
             alt={`${service.title} - after`}
             fill
             sizes="(min-width: 1024px) 45vw, 90vw"
-            className="object-cover"
+            className="pointer-events-none object-cover"
             draggable={false}
           />
         </div>
 
-        {/* Before Image (Clipped/Resized Overlay) */}
-        <div className="absolute inset-0 overflow-hidden" style={{ width: `${position}%` }}>
+        {/* Before Image — clipped overlay, revealed on the LEFT of the line */}
+        <div
+          className="absolute inset-y-0 left-0 overflow-hidden"
+          style={{ width: `${position}%` }}
+        >
           <div className="relative h-full" style={{ width: width || "100%" }}>
             <Image
               src={service.before}
               alt={`${service.title} - before`}
               fill
               sizes="(min-width: 1024px) 45vw, 90vw"
-              className="object-cover"
+              className="pointer-events-none object-cover"
               draggable={false}
             />
           </div>
         </div>
 
-        {/* Divider Line & Handle Button */}
-        <div
-          className="absolute inset-y-0 z-10 flex w-0 items-center justify-center"
-          style={{ left: `${position}%` }}
-        >
-          {/* Vertical Line */}
-          <div className="absolute inset-y-0 w-[2px] bg-white shadow-[0_0_10px_rgba(0,0,0,0.3)]" />
-          
-          {/* Circular Drag Button with Left-Right Arrows */}
-          <button
-            type="button"
-            aria-label="Drag to compare before and after"
-            role="slider"
-            aria-valuenow={Math.round(position)}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            tabIndex={0}
-            onPointerDown={onPointerDown}
-            onKeyDown={onKeyDown}
-            className="relative flex h-10 w-10 -translate-x-1/2 cursor-ew-resize items-center justify-center rounded-full border border-stone-300 bg-white text-stone-700 shadow-md transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-stone-900"
-          >
-            <ChevronLeft size={16} strokeWidth={2.5} className="-mr-1" />
-            <ChevronRight size={16} strokeWidth={2.5} className="-ml-1" />
-          </button>
-        </div>
+        {/*
+          Divider Line + Handle — uses your actual Figma PNGs
+          (public/icons/Line 2.png, public/icons/Group 13.png).
+        */}
+    <div
+  className="absolute inset-y-0 z-20 -translate-x-1/2"
+  style={{ left: `${position}%` }}
+>
+  <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+    <img
+      src="/icons/Line 2.png"
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      className="h-full w-full select-none object-fill"
+    />
+  </div>
+
+  <button
+    type="button"
+    aria-label="Drag to compare before and after"
+    role="slider"
+    aria-valuenow={Math.round(position)}
+    aria-valuemin={0}
+    aria-valuemax={100}
+    tabIndex={0}
+    onPointerDown={onHandlePointerDown}
+    onTouchStart={onHandleTouchStart}
+    onKeyDown={onKeyDown}
+    className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+  >
+    <img
+      src="/icons/Group 13.png"
+      alt=""
+      draggable={false}
+      className="h-10 w-10 select-none"
+    />
+  </button>
+</div>
       </div>
 
       <div className={reversed ? "lg:order-1" : ""}>

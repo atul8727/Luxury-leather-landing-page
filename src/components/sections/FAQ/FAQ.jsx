@@ -1,24 +1,53 @@
 "use client";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import Image from "next/image";
+import { Plus, Minus } from "lucide-react";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Button from "@/components/ui/Button";
 import { FAQS } from "@/data/faq";
+
+function FaqIcon({ className = "" }) {
+  return (
+    <div className={`relative h-5 w-[42px] ${className}`}>
+      <Image
+        src="/icons/Vector.png"
+        alt=""
+        fill
+        sizes="42px"
+        className="object-contain"
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-maisons py-20 lg:py-28">
-      <Container className="max-w-3xl">
-        <SectionHeading eyebrow="Have a Question" title="Frequently Asked Questions" />
+    <section className="py-[88px] sm:py-[100px] lg:py-[116px]" style={{ background: "#FFF8F2" }}>
+      <Container className="max-w-4xl">
+        {/* Heading Section */}
+        <div className="flex flex-col items-center text-center">
+          <FaqIcon />
+          <p className="mt-2 font-inter text-[14px] font-medium uppercase leading-none tracking-[0.02em] text-[#755244] sm:text-[16px]">
+            Have a Question
+          </p>
+          <h2 className="mt-[18px] font-display text-[34px] font-bold uppercase leading-[1.08] tracking-[-0.01em] text-[#755244] sm:text-[42px] lg:text-[52px]">
+            Frequently Asked Questions
+          </h2>
+        </div>
 
-        <div className="mt-10 divide-y divide-ink/10 border-t border-b border-ink/10">
+        {/* FAQ Items - with a narrower max-width wrapper compared to CTA */}
+        <div className="mx-auto mt-[70px] max-w-3xl flex flex-col gap-4">
           {FAQS.map((faq, index) => {
             const open = openIndex === index;
             return (
-              <div key={faq.question}>
+              <div
+                key={faq.question}
+                className="rounded-[16px] border border-[#E6D7CD] bg-white px-6 transition-colors duration-300"
+              >
                 <button
                   type="button"
                   onClick={() => setOpenIndex(open ? -1 : index)}
@@ -26,14 +55,20 @@ export default function FAQ() {
                   aria-controls={`faq-panel-${index}`}
                   className="flex w-full items-center justify-between gap-6 py-5 text-left"
                 >
-                  <span className="font-display text-[16px] text-ink sm:text-[17px]">
+                  <span className="font-display text-[16px] font-semibold text-[#3A2821] sm:text-[18px]">
                     {faq.question}
                   </span>
-                  <Plus
-                    size={18}
-                    strokeWidth={1.75}
-                    className={`shrink-0 text-ink-soft transition-transform duration-300 ${open ? "rotate-45" : ""}`}
-                  />
+                  <span
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
+                      open ? "bg-[#755244] text-[#FFE6D1]" : "bg-[#FFE6D1] text-[#755244]"
+                    }`}
+                  >
+                    {open ? (
+                      <Minus size={16} strokeWidth={2.5} />
+                    ) : (
+                      <Plus size={16} strokeWidth={2.5} />
+                    )}
+                  </span>
                 </button>
                 <div
                   id={`faq-panel-${index}`}
@@ -42,12 +77,43 @@ export default function FAQ() {
                   }`}
                 >
                   <div className="min-h-0">
-                    <p className="text-[14.5px] leading-relaxed text-ink-soft">{faq.answer}</p>
+                    <p className="font-inter text-[15px] leading-relaxed text-[#5A5A5A]">
+                      {faq.answer}
+                    </p>
                   </div>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* CTA Card — keeps full container width */}
+        <div
+          className="mt-20 flex flex-col items-center gap-8 overflow-hidden rounded-[24px] px-8 py-10 sm:px-10 lg:flex-row lg:items-center lg:gap-12 lg:px-14 lg:py-12"
+          style={{ background: "#755244" }}
+        >
+          <div className="flex-1 text-center lg:text-left">
+            <h3 className="font-display text-[26px] font-bold leading-snug text-[#FFE6D1] sm:text-[32px]">
+              Still Have Questions?
+            </h3>
+            <p className="mt-3 font-inter text-[15px] leading-relaxed text-[#FFE6D1]/80">
+              Can&apos;t find the answer you&apos;re looking for? Our team is happy to walk you
+              through the process and give you a free, no-obligation quote.
+            </p>
+            <Button href="#contact" variant="light" className="mt-6">
+              Get a Free Quote
+            </Button>
+          </div>
+
+          <div className="w-full max-w-md shrink-0 lg:w-[380px]">
+            <Image
+              src="/images/cta/ChatGPT Image Sep 1, 2026, 05_17_59 PM 1.png"
+              alt="Restored leather bag and shoes"
+              width={800}
+              height={600}
+              className="h-auto w-full object-contain rounded-[16px]"
+            />
+          </div>
         </div>
       </Container>
     </section>

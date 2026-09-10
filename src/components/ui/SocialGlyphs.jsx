@@ -11,13 +11,36 @@ export function InstagramGlyph({ size = 17, className = "" }) {
 export function FacebookGlyph({ size = 17, className = "" }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
-      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="1.6" />
       <path
-        d="M13.6 20V13h2.1l.3-2.4h-2.4V9.1c0-.7.2-1.2 1.2-1.2h1.3V5.7c-.2 0-1-.1-1.9-.1-1.9 0-3.2 1.1-3.2 3.3v1.7H8.9V13h2.1v7"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
+        d="M15 3h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3V3z"
+        fill="currentColor"
       />
+    </svg>
+  );
+}
+
+export function TwitterGlyph({ size = 17, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function LinkedInGlyph({ size = 17, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+        fill="currentColor"
+      />
+      <rect x="2" y="9" width="4" height="12" fill="currentColor" />
+      <circle cx="4" cy="4" r="2" fill="currentColor" />
     </svg>
   );
 }
@@ -44,6 +67,28 @@ export function YouTubeGlyph({ size = 17, className = "" }) {
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
       <rect x="3" y="6" width="18" height="12" rx="4" stroke="currentColor" strokeWidth="1.6" />
       <path d="M10.5 9.7v4.6l4-2.3-4-2.3Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function EmailGlyph({ size = 17, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" strokeWidth="1.6" />
+      <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PhoneGlyph({ size = 17, className = "" }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M5.5 4.5h3l1.5 4-2 2a11.5 11.5 0 0 0 5 5l2-2 4 1.5v3a2 2 0 0 1-2.18 2 16 16 0 0 1-13.82-13.82A2 2 0 0 1 5.5 4.5Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

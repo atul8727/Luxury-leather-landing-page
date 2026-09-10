@@ -1,31 +1,63 @@
-import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
+import Image from "next/image";
+
 import { REVIEWS } from "@/data/reviews";
 import ReviewCard from "./ReviewCard";
 
+function TestimonialIcon({ className = "" }) {
+  return (
+    <div className={`relative h-5 w-[42px] ${className}`}>
+      <Image
+        src="/icons/Vector.png"
+        alt=""
+        fill
+        sizes="42px"
+        className="object-contain brightness-0 invert"
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
 export default function Reviews() {
   return (
-    <section id="reviews" className="bg-maisons py-20 lg:py-28">
-      <Container>
-        <div className="flex flex-col items-center gap-4 text-center">
-          <span className="text-[13px] font-medium tracking-[0.16em] text-ink-soft uppercase">
-            Customers Love Us
-          </span>
-          <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px] lg:text-[40px]">
+    <section
+      id="reviews"
+      className="bg-[#755244] py-[88px] sm:py-[100px] lg:py-[116px]"
+    >
+      <div className="mx-auto w-full max-w-[1240px] px-5 sm:px-8 xl:px-0">
+        {/* Heading */}
+        <div className="flex flex-col items-center text-center text-[#FFE6D1]">
+          <TestimonialIcon />
+
+          <p className="mt-2 font-inter text-[14px] font-medium uppercase leading-none tracking-[0.02em] sm:text-[16px]">
+            Customer Love Us
+          </p>
+
+          <h2 className="mt-[18px] font-display text-[34px] font-bold uppercase leading-[1.08] tracking-[-0.01em] sm:text-[42px] lg:text-[52px]">
             What Our Customers Say
           </h2>
-          <Badge>5.0 &nbsp;|&nbsp; 286 reviews</Badge>
         </div>
 
-        <div className="mt-12 flex gap-6 overflow-x-auto pb-4 no-scrollbar sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-3">
+        {/* Google rating bar - matches grid width with centered image */}
+        <div className="mt-[70px] flex h-[72px] w-full items-center justify-center rounded-[12px] bg-white px-6 shadow-md">
+          <div className="relative h-[30px] w-[240px]">
+            <Image
+              src="/images/reviews/Group 47.png"
+              alt="Google 5.0 Rating & Reviews"
+              fill
+              sizes="240px"
+              className="object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Review cards grid */}
+        <div className="mt-[29px] grid grid-cols-1 gap-x-[26px] gap-y-[30px] sm:grid-cols-2 xl:grid-cols-4">
           {REVIEWS.map((review) => (
-            <div key={review.id} className="min-w-[280px] sm:min-w-0">
-              <ReviewCard review={review} />
-            </div>
+            <ReviewCard key={review.id} review={review} />
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }

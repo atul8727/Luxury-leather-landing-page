@@ -1,7 +1,7 @@
-import { Mail, Phone } from "lucide-react";
+import Image from "next/image";
 import Container from "@/components/ui/Container";
-import { InstagramGlyph, FacebookGlyph, WhatsAppGlyph, YouTubeGlyph } from "@/components/ui/SocialGlyphs";
-import { SITE, SOCIAL_LINKS } from "@/lib/constants";
+import { EmailGlyph, PhoneGlyph } from "@/components/ui/SocialGlyphs";
+import { SITE } from "@/lib/constants";
 import { CITIES } from "@/data/cities";
 
 const NAV_LINKS = [
@@ -14,57 +14,48 @@ const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const iconFor = (label) => {
-  switch (label) {
-    case "Instagram":
-      return InstagramGlyph;
-    case "Facebook":
-      return FacebookGlyph;
-    case "YouTube":
-      return YouTubeGlyph;
-    default:
-      return WhatsAppGlyph;
-  }
-};
+const SOCIAL_ICONS = [
+  { label: "Facebook", href: "#", src: "/icons/Group 76.png" },
+  { label: "Twitter", href: "#", src: "/icons/Group 77.png" },
+  { label: "LinkedIn", href: "#", src: "/icons/Group 78.png" },
+  { label: "Instagram", href: "#", src: "/icons/Group 79.png" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-navbar text-navbar-text">
+    <footer className="bg-[#5C3D31] text-[#FFE6D1]">
       <Container className="grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
+        
+        {/* Col 1: Logo & Brand description */}
         <div className="flex flex-col gap-5 lg:col-span-1">
-          <span className="font-display text-[22px] font-semibold">Luxury Leather</span>
-          <p className="max-w-xs text-[14px] leading-relaxed text-navbar-text/75">
+          <div className="relative h-22 w-[200px]">
+            <Image
+              src="/images/LOGO.png" 
+              alt={SITE.name}
+              fill
+              sizes="200px"
+              className="object-contain object-left"
+            />
+          </div>
+          <p className="max-w-xs font-inter text-[14px] leading-relaxed text-[#FFE6D1]/80">
             {SITE.name} is a team of experienced technicians focused on quality, efficient, and
             innovative solutions. We restore and care for leather products, helping make
             resources reusable while reducing waste.
           </p>
-          <div className="flex items-center gap-3 pt-1">
-            {SOCIAL_LINKS.map(({ label, href }) => {
-              const Icon = iconFor(label);
-              return (
-                <a
-                  key={label}
-                  href={href}
-                  aria-label={label}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-navbar-text/25 transition-colors hover:bg-navbar-text/10"
-                >
-                  <Icon size={16} strokeWidth={1.75} />
-                </a>
-              );
-            })}
-          </div>
         </div>
 
+        {/* Col 2: Navigation */}
         <div>
-          <h3 className="mb-5 text-[13px] font-medium tracking-[0.14em] text-navbar-text/60 uppercase">
-            Navigation
-          </h3>
+          <div className="mb-5 inline-block">
+            <h3 className="font-display text-[13px] font-bold tracking-[0.14em] text-[#FFE6D1] uppercase">
+              Navigation
+            </h3>
+            <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
+          </div>
           <ul className="flex flex-col gap-3">
             {NAV_LINKS.map((l) => (
               <li key={l.label}>
-                <a href={l.href} className="text-[14px] text-navbar-text/85 hover:text-navbar-text">
+                <a href={l.href} className="font-inter text-[14px] text-[#FFE6D1]/80 transition-colors hover:text-[#FFE6D1]">
                   {l.label}
                 </a>
               </li>
@@ -72,48 +63,96 @@ export default function Footer() {
           </ul>
         </div>
 
+        {/* Col 3: Services (Cities We Serve) */}
         <div>
-          <h3 className="mb-5 text-[13px] font-medium tracking-[0.14em] text-navbar-text/60 uppercase">
-            Cities We Serve
-          </h3>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-3">
+          <div className="mb-5 inline-block">
+            <h3 className="font-display text-[13px] font-bold tracking-[0.14em] text-[#FFE6D1] uppercase">
+              Services
+            </h3>
+            <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
+          </div>
+          <ul className="grid grid-cols-1 gap-y-3">
             {CITIES.map((c) => (
-              <li key={c} className="text-[14px] text-navbar-text/85">
+              <li key={c} className="font-inter text-[14px] text-[#FFE6D1]/80">
                 {c}
               </li>
             ))}
           </ul>
         </div>
 
-        <div>
-          <h3 className="mb-5 text-[13px] font-medium tracking-[0.14em] text-navbar-text/60 uppercase">
-            Contact
-          </h3>
-          <ul className="flex flex-col gap-4">
-            <li>
-              <a href={SITE.emailHref} className="flex items-center gap-2 text-[14px] text-navbar-text/85 hover:text-navbar-text">
-                <Mail size={16} strokeWidth={1.75} />
-                {SITE.email}
-              </a>
-            </li>
-            <li>
-              <a href={SITE.phoneHref} className="flex items-center gap-2 text-[14px] text-navbar-text/85 hover:text-navbar-text">
-                <Phone size={16} strokeWidth={1.75} />
-                {SITE.phone}
-              </a>
-            </li>
-          </ul>
+        {/* Col 4: Contact & Socials */}
+        <div className="flex flex-col gap-8">
+          <div>
+            <div className="mb-5 inline-block">
+              <h3 className="font-display text-[13px] font-bold tracking-[0.14em] text-[#FFE6D1] uppercase">
+                Contact
+              </h3>
+              <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
+            </div>
+            <ul className="flex flex-col gap-3.5">
+              <li>
+                <a href={SITE.emailHref} className="flex items-center gap-3 font-inter text-[14px] text-[#FFE6D1]/80 transition-colors hover:text-[#FFE6D1]">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#FFE6D1]/30 text-[#FFE6D1]">
+                    <EmailGlyph size={16} />
+                  </span>
+                  <span className="break-all">{SITE.email}</span>
+                </a>
+              </li>
+              <li>
+                <a href={SITE.phoneHref} className="flex items-center gap-3 font-inter text-[14px] text-[#FFE6D1]/80 transition-colors hover:text-[#FFE6D1]">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#FFE6D1]/30 text-[#FFE6D1]">
+                    <PhoneGlyph size={16} />
+                  </span>
+                  {SITE.phone}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <div className="mb-4 inline-block">
+              <h3 className="font-display text-[13px] font-bold tracking-[0.14em] text-[#FFE6D1] uppercase">
+                Our Socials
+              </h3>
+              <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
+            </div>
+            
+            {/* Social Icons with optimized spacing and full-size image fit */}
+         {/* Social Icons - images already have their own circular badge design */}
+<div className="flex items-center gap-3">
+  {SOCIAL_ICONS.map(({ label, href, src }) => (
+    <a
+      key={label}
+      href={href}
+      aria-label={label}
+      target="_blank"
+      rel="noreferrer"
+      className="flex h-9 w-9 items-center justify-center transition-transform hover:scale-105"
+    >
+      <Image
+        src={src}
+        alt={label}
+        width={36}
+        height={36}
+        className="h-full w-full object-contain"
+      />
+    </a>
+  ))}
+</div>
+          </div>
         </div>
+
       </Container>
 
-      <div className="border-t border-navbar-text/10">
-        <Container className="flex flex-col items-center justify-between gap-3 py-6 text-[12px] text-navbar-text/60 sm:flex-row">
-          <span>Copyright © {new Date().getFullYear()} Luxury Leather and Furniture Care</span>
-          <div className="flex items-center gap-5">
-            <a href="#" className="hover:text-navbar-text">
+      {/* Bottom Copyright & Legal */}
+      <div className="border-t border-[#FFE6D1]/15">
+        <Container className="flex flex-col items-center justify-between gap-3 py-6 font-inter text-[12px] text-[#FFE6D1]/60 sm:flex-row">
+          <span>Copyright © {new Date().getFullYear()} {SITE.name}</span>
+          <div className="flex items-center gap-6">
+            <a href="#" className="transition-colors hover:text-[#FFE6D1]">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-navbar-text">
+            <a href="#" className="transition-colors hover:text-[#FFE6D1]">
               Terms &amp; Conditions
             </a>
           </div>

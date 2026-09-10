@@ -3,14 +3,32 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { PROCESS_STEPS } from "@/data/process";
 
+function ProcessIcon({ className = "" }) {
+  return (
+    <div className={`relative h-5 w-[42px] ${className}`}>
+      <Image
+        src="/icons/Vector.png"
+        alt=""
+        fill
+        sizes="42px"
+        className="object-contain"
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
 export default function Process() {
   return (
     <section className="py-20 lg:py-28">
       <Container>
-        <SectionHeading
-          eyebrow="4 Easy Steps"
-          title="Your Restoration Journey, Made Simple"
-        />
+        <div className="flex flex-col items-center text-center">
+          <ProcessIcon className="mb-2" />
+          <SectionHeading
+            eyebrow="4 Easy Steps"
+            title="Your Restoration Journey, Made Simple"
+          />
+        </div>
 
         <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {PROCESS_STEPS.map((step) => (
