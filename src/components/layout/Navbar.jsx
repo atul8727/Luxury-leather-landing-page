@@ -56,7 +56,8 @@ export default function Navbar() {
           scrolled ? "shadow-[0_8px_24px_rgba(20,12,8,0.25)]" : ""
         }`}
       >
-        <Container className="grid h-[76px] grid-cols-[1fr_auto_1fr] items-center lg:h-[84px]">
+        {/* <Container className="grid h-[96px] grid-cols-[1fr_auto_1fr] items-center lg:h-[112px]"> */}
+        <Container className="grid h-[104px] grid-cols-[1fr_auto_1fr] items-center lg:h-[120px]">
           <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center justify-start gap-8">
               {leftItems.map(renderLink)}
@@ -65,20 +66,23 @@ export default function Navbar() {
 
           {/* LOGO */}
           <a
-            href="#top"
-            onClick={(e) => handleNavClick(e, "#top")}
-            className="flex items-center justify-self-center py-1.5"
-            aria-label={SITE.name}
-          >
-            <Image
-              src="/images/LOGO.png"
-              alt={SITE.name}
-              width={64}
-              height={64}
-              priority
-              className="h-[54px] w-auto lg:h-[64px]"
-            />
-          </a>
+          
+  href="#top"
+  onClick={(e) => handleNavClick(e, "#top")}
+  className="flex items-center justify-self-center py-1"
+  aria-label={SITE.name}
+>
+  <div className="relative h-[78px] w-[105px] sm:h-[94px] sm:w-[126px] lg:h-[106px] lg:w-[142px]">
+    <Image
+      src="/images/LOGO-V2.png"
+      alt={SITE.name}
+      fill
+      priority
+      sizes="142px"
+      className="object-contain"
+    />
+  </div>
+</a>
 
           <div className="hidden items-center justify-end gap-8 lg:flex">
             <nav aria-label="Secondary">
