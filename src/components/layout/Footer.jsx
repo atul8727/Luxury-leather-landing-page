@@ -28,15 +28,18 @@ export default function Footer() {
         
         {/* Col 1: Logo & Brand description */}
         <div className="flex flex-col gap-5 lg:col-span-1">
-          <div className="relative h-22 w-[200px]">
-            <Image
-              src="/images/LOGO.png" 
-              alt={SITE.name}
-              fill
-              sizes="200px"
-              className="object-contain object-left"
-            />
-          </div>
+    
+
+
+<div className="relative h-28 w-[190px] sm:h-36 sm:w-[240px]">
+  <Image
+    src="/images/LOGO-V2.png" 
+    alt={SITE.name}
+    fill
+    sizes="240px"
+    className="object-contain object-left"
+  />
+</div>
           <p className="max-w-xs font-inter text-[14px] leading-relaxed text-[#FFE6D1]/80">
             {SITE.name} is a team of experienced technicians focused on quality, efficient, and
             innovative solutions. We restore and care for leather products, helping make
@@ -116,29 +119,27 @@ export default function Footer() {
               </h3>
               <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
             </div>
-            
-            {/* Social Icons with optimized spacing and full-size image fit */}
-         {/* Social Icons - images already have their own circular badge design */}
-<div className="flex items-center gap-3">
-  {SOCIAL_ICONS.map(({ label, href, src }) => (
-    <a
-      key={label}
-      href={href}
-      aria-label={label}
-      target="_blank"
-      rel="noreferrer"
-      className="flex h-9 w-9 items-center justify-center transition-transform hover:scale-105"
-    >
-      <Image
-        src={src}
-        alt={label}
-        width={36}
-        height={36}
-        className="h-full w-full object-contain"
-      />
-    </a>
-  ))}
-</div>
+
+            <div className="flex items-center gap-3">
+              {SOCIAL_ICONS.map(({ label, href, src }) => (
+                <a
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex h-9 w-9 items-center justify-center transition-transform hover:scale-105"
+                >
+                  <Image
+                    src={src}
+                    alt={label}
+                    width={36}
+                    height={36}
+                    className="h-full w-full object-contain"
+                  />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
