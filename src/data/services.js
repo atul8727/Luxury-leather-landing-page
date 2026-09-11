@@ -14,8 +14,8 @@ export const SERVICES = [
     title: "Valentino Sandals Cleaning and Color Restoration",
     description:
       "Revive your Valentino sandals with our expert cleaning and colour restoration service, designed to remove stubborn stains. Whether it's dirt, grime, or colour transfer, our team uses gentle yet effective techniques to lift stains without damaging the delicate material, precisely matching and restoring the original colour.",
-    before: "/images/services/beforeshoe.jpg",
-    after: "/images/services/aftershoes.jpg",
+    before: "/images/services/ai-generated-white-and-green-running-shoes-with-green-details-free-photo.jpg",
+    after: "/images/services/vibrant-orange-winter-jacket-featuring-260nw-2477818113.jpg",
   },
   {
     id: 3,
@@ -23,8 +23,8 @@ export const SERVICES = [
     title: "Hermès Oran Sandals Restoration",
     description:
       "Restore the pristine elegance of your Hermès white Oran sandals with our professional cleaning and colour restoration service. Our experts specialise in gently removing dirt, scuffs, and yellowing while preserving the delicate craftsmanship, bringing back the original brightness and finish.",
-    before: "/images/before-after/before-3.png",
-    after: "/images/before-after/after-3.png",
+    before: "/images/services/ai-generated-white-and-green-running-shoes-with-green-details-free-photo.jpg",
+    after: "/images/services/vibrant-orange-winter-jacket-featuring-260nw-2477818113.jpg",
   },
   {
     id: 4,
@@ -50,8 +50,8 @@ export const SERVICES = [
     title: "Miu Miu Patent Sandals Colour Change",
     description:
       "Give your favourite pair a bold new look with our expert colour change service. Using high-quality dyes formulated for patent leather, we ensure a flawless, glossy finish without compromising the material's texture or shine.",
-     before: "/images/before-after/before-3.png",
-    after: "/images/before-after/after-3.png",
+   before: "/images/services/ai-generated-white-and-green-running-shoes-with-green-details-free-photo.jpg",
+    after: "/images/services/vibrant-orange-winter-jacket-featuring-260nw-2477818113.jpg",
   },
   {
     id: 7,
