@@ -140,7 +140,7 @@ export default function Footer() {
                     alt={label}
                     width={36}
                     height={36}
-                    className="h-full w-full object-contain"
+                    className="h-full w-full object-cover"
                   />
                 </a>
               ))}
