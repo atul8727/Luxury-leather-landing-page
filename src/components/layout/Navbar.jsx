@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -15,13 +16,17 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -42,7 +47,7 @@ export default function Navbar() {
       <a
         href={item.href}
         onClick={(e) => handleNavClick(e, item.href)}
-        className="text-[13px] font-medium tracking-[0.12em] text-[#69483C]/90 uppercase whitespace-nowrap transition-colors hover:text-[#69483C] relative after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-[#69483C] after:transition-all after:duration-300 hover:after:w-full"
+        className="relative whitespace-nowrap text-[13px] font-medium uppercase tracking-[0.12em] text-[#69483C]/90 transition-colors hover:text-[#69483C] after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-0 after:bg-[#69483C] after:transition-all after:duration-300 hover:after:w-full"
       >
         {item.label}
       </a>
@@ -56,8 +61,9 @@ export default function Navbar() {
           scrolled ? "shadow-[0_8px_24px_rgba(20,12,8,0.25)]" : ""
         }`}
       >
-        {/* <Container className="grid h-[96px] grid-cols-[1fr_auto_1fr] items-center lg:h-[112px]"> */}
-        <Container className="grid h-[104px] grid-cols-[1fr_auto_1fr] items-center lg:h-[120px]">
+        {/* COMPACT HEADER HEIGHT */}
+        <Container className="grid h-[80px] grid-cols-[1fr_auto_1fr] items-center lg:h-[88px]">
+          {/* LEFT NAVIGATION */}
           <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center justify-start gap-8">
               {leftItems.map(renderLink)}
@@ -66,24 +72,24 @@ export default function Navbar() {
 
           {/* LOGO */}
           <a
-          
-  href="#top"
-  onClick={(e) => handleNavClick(e, "#top")}
-  className="flex items-center justify-self-center py-1"
-  aria-label={SITE.name}
->
-  <div className="relative h-[78px] w-[105px] sm:h-[94px] sm:w-[126px] lg:h-[106px] lg:w-[142px]">
+            href="#top"
+            onClick={(e) => handleNavClick(e, "#top")}
+            className="flex items-center justify-self-center"
+            aria-label={SITE.name}
+          >
+             <div className="relative h-[78px] w-[105px] sm:h-[94px] sm:w-[126px] lg:h-[106px] lg:w-[142px] -mt-2">
     <Image
       src="/images/LOGO-V2.png"
       alt={SITE.name}
       fill
       priority
       sizes="142px"
-      className="object-contain"
+      className="object-cover"
     />
   </div>
-</a>
+          </a>
 
+          {/* RIGHT NAVIGATION */}
           <div className="hidden items-center justify-end gap-8 lg:flex">
             <nav aria-label="Secondary">
               <ul className="flex items-center justify-end gap-8">
@@ -92,6 +98,7 @@ export default function Navbar() {
             </nav>
           </div>
 
+          {/* MOBILE MENU BUTTON */}
           <button
             type="button"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
