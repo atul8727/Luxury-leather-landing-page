@@ -94,7 +94,7 @@ export default function CompareSlider({
   return (
     <div
       ref={containerRef}
-      className={`relative aspect-[5/4] w-full touch-none overflow-hidden rounded-[24px] select-none bg-white ${className}`}
+      className={`relative aspect-square w-full touch-none overflow-hidden rounded-[24px] select-none bg-white ${className}`}
       onPointerDown={onContainerPointerDown}
       onTouchStart={onContainerTouchStart}
     >
@@ -104,7 +104,7 @@ export default function CompareSlider({
           alt={afterAlt}
           fill
           sizes="(min-width: 1024px) 45vw, 90vw"
-          className="pointer-events-none object-cover"
+          className="pointer-events-none object-contain"
           draggable={false}
         />
       </div>
@@ -119,7 +119,7 @@ export default function CompareSlider({
             alt={beforeAlt}
             fill
             sizes="(min-width: 1024px) 45vw, 90vw"
-            className="pointer-events-none object-cover"
+            className="pointer-events-none object-contain"
             draggable={false}
           />
         </div>

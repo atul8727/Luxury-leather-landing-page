@@ -112,8 +112,13 @@ export default function MoreServices() {
           {/* Content — stacks below image on mobile, sits on the LEFT on desktop */}
           <div key={`${active.id}-content`} className="order-2 animate-fadeIn lg:order-1">
             <h3
-              className="font-display text-[24px] leading-snug sm:text-[28px]"
-              style={{ color: "#614338" }}
+              className="uppercase leading-snug"
+              style={{
+                fontFamily: "'Roboto Slab', serif",
+                fontWeight: 700,
+                fontSize: "24px",
+                color: "#614338",
+              }}
             >
               {active.heading}
             </h3>

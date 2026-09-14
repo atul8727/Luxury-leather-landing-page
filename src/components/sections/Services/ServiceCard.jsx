@@ -128,54 +128,65 @@ export default function ServiceCard({ service, index }) {
           Divider Line + Handle — uses your actual Figma PNGs
           (public/icons/Line 2.png, public/icons/Group 13.png).
         */}
-    <div
-  className="absolute inset-y-0 z-20 -translate-x-1/2"
-  style={{ left: `${position}%` }}
->
-  <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
-    <img
-      src="/icons/Line 2.png"
-      alt=""
-      aria-hidden="true"
-      draggable={false}
-      className="h-full w-full select-none object-fill"
-    />
-  </div>
+        <div
+          className="absolute inset-y-0 z-20 -translate-x-1/2"
+          style={{ left: `${position}%` }}
+        >
+          <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+            <img
+              src="/icons/Line 2.png"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="h-full w-full select-none object-fill"
+            />
+          </div>
 
-  <button
-    type="button"
-    aria-label="Drag to compare before and after"
-    role="slider"
-    aria-valuenow={Math.round(position)}
-    aria-valuemin={0}
-    aria-valuemax={100}
-    tabIndex={0}
-    onPointerDown={onHandlePointerDown}
-    onTouchStart={onHandleTouchStart}
-    onKeyDown={onKeyDown}
-    className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
-  >
-    <img
-      src="/icons/Group 13.png"
-      alt=""
-      draggable={false}
-      className="h-10 w-10 select-none"
-    />
-  </button>
-</div>
+          <button
+            type="button"
+            aria-label="Drag to compare before and after"
+            role="slider"
+            aria-valuenow={Math.round(position)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            tabIndex={0}
+            onPointerDown={onHandlePointerDown}
+            onTouchStart={onHandleTouchStart}
+            onKeyDown={onKeyDown}
+            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            <img
+              src="/icons/Group 13.png"
+              alt=""
+              draggable={false}
+              className="h-10 w-10 select-none"
+            />
+          </button>
+        </div>
       </div>
 
       <div className={reversed ? "lg:order-1" : ""}>
         <span className="inline-block rounded-full border border-ink/20 px-3 py-1 text-[11px] font-medium tracking-[0.14em] text-ink-soft uppercase">
           Service {index + 1}
         </span>
-        <h3 className="mt-4 font-display text-[24px] leading-snug text-ink sm:text-[28px]">
+        <h3
+          className="mt-4 font-display text-[24px] leading-snug uppercase sm:text-[28px]"
+          style={{ color: "#614338" }}
+        >
           {service.tag}
         </h3>
-        <p className="mt-2 text-[13px] font-semibold tracking-[0.02em] text-ink uppercase">
+        <p
+          className="mt-2 text-[13px] font-semibold tracking-[0.02em] uppercase"
+          style={{ color: "#614338" }}
+        >
           {service.title}
         </p>
-        <p className="mt-4 text-[14.5px] leading-relaxed text-ink-soft">{service.description}</p>
+        <p
+          className="mt-4 text-[14.5px] leading-relaxed"
+          style={{ color: "#101010" }}
+        >
+          {service.description}
+        </p>
         <Button href="#contact" variant="primary" className="mt-7">
           Get a Free Quote
           <ArrowRight size={16} strokeWidth={2} />

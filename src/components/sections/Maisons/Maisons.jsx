@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
 import { MAISONS } from "@/data/maisons";
 
 function MaisonIcon({ className = "" }) {
@@ -20,30 +19,49 @@ function MaisonIcon({ className = "" }) {
 
 export default function Maisons() {
   return (
-    <section className="bg-maisons py-20 lg:py-28">
+    <section className="bg-[#FFF8F2] py-20 lg:py-28">
       <Container>
         <div className="flex flex-col items-center text-center">
           <MaisonIcon className="mb-3" />
-          <SectionHeading
-            eyebrow="The Shoe Atelier Catalogue"
-            title="Maisons We Restore"
-            description="From heritage houses to contemporary designers, our artisans understand the construction and finish of every maison we work with."
-          />
+          <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
+            Maisons We Restore
+          </p>
+          <h2
+            className="mx-auto mt-2 text-center uppercase"
+            style={{
+              fontFamily: "'Roboto Slab', serif",
+              fontWeight: 700,
+              fontSize: "50px",
+              lineHeight: "60px",
+              letterSpacing: "0%",
+              color: "#614338",
+              width: "791px",
+              maxWidth: "100%",
+            }}
+          >
+            The Shoe Atelier Catalogue
+          </h2>
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 md:gap-6">
           {MAISONS.map((brand) => (
             <div
               key={brand.id}
-              className="group relative aspect-square w-full max-w-[340px] justify-self-center overflow-hidden rounded-[20px] border border-ink/10 bg-white"
+              className="relative aspect-square w-full max-w-[340px] justify-self-center overflow-hidden rounded-[20px] border border-ink/10 bg-white"
             >
               <Image
                 src={brand.image}
                 alt={brand.name}
                 fill
                 sizes="(min-width: 768px) 22vw, 45vw"
-                className="object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                className="object-cover"
               />
+              {/* <span
+                className="absolute left-4 top-4 font-display text-[13px] font-bold uppercase tracking-wide"
+                style={{ color: "#614338" }}
+              >
+                {brand.name}
+              </span> */}
             </div>
           ))}
         </div>
