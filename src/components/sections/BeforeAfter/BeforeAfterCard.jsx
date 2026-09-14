@@ -82,10 +82,10 @@ export default function BeforeAfterCard({ item }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 rounded-[22px] bg-white p-3 shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+    <div className="flex flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
       <div
         ref={containerRef}
-        className="relative aspect-[4/5] w-full touch-none overflow-hidden rounded-[16px] select-none bg-white"
+        className="relative aspect-[4/5] w-full touch-none overflow-hidden select-none bg-white"
         onPointerDown={onContainerPointerDown}
         onTouchStart={onContainerTouchStart}
       >
@@ -96,7 +96,7 @@ export default function BeforeAfterCard({ item }) {
             alt={`${item.title} - after restoration`}
             fill
             sizes="(min-width: 1024px) 30vw, 90vw"
-            className="pointer-events-none object-cover"
+            className="pointer-events-none object-contain"
             draggable={false}
           />
         </div>
@@ -112,13 +112,13 @@ export default function BeforeAfterCard({ item }) {
               alt={`${item.title} - before restoration`}
               fill
               sizes="(min-width: 1024px) 30vw, 90vw"
-              className="pointer-events-none object-cover"
+              className="pointer-events-none object-contain"
               draggable={false}
             />
           </div>
         </div>
 
-        {/* Badges - fixed to the corners, always visible regardless of slider position */}
+        {/* Badges */}
         <span className="pointer-events-none absolute left-3 top-3 z-20 rounded-full bg-ink/85 px-3 py-1 text-[10px] font-semibold tracking-[0.14em] text-cream uppercase shadow-sm">
           Before
         </span>
@@ -126,7 +126,7 @@ export default function BeforeAfterCard({ item }) {
           After
         </span>
 
-        {/* Divider Line + Handle — same Figma assets as Services cards */}
+        {/* Divider Line + Handle */}
         <div
           className="absolute inset-y-0 z-30 -translate-x-1/2"
           style={{ left: `${position}%` }}
@@ -163,7 +163,7 @@ export default function BeforeAfterCard({ item }) {
           </button>
         </div>
       </div>
-      <p className="pb-1 text-center font-display text-[15px] text-ink-soft">
+      <p className="px-4 py-3 text-center font-display text-[15px] text-ink-soft">
         {item.title}
       </p>
     </div>

@@ -57,7 +57,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 bg-[#FFF2E6] transition-shadow duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 bg-[#FFE5CD] transition-shadow duration-300 ${
           scrolled ? "shadow-[0_8px_24px_rgba(20,12,8,0.25)]" : ""
         }`}
       >
