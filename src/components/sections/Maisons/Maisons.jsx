@@ -21,22 +21,20 @@ export default function Maisons() {
   return (
     <section className="bg-[#FFF8F2] py-20 lg:py-28">
       <Container>
-        <div className="flex flex-col items-center text-center">
+        <div className="flex flex-col items-center px-4 text-center sm:px-0">
           <MaisonIcon className="mb-3" />
           <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
             Maisons We Restore
           </p>
           <h2
-            className="mx-auto mt-2 text-center uppercase"
+            className="mx-auto mt-2 w-full max-w-[791px] text-center uppercase"
             style={{
               fontFamily: "'Roboto Slab', serif",
               fontWeight: 700,
-              fontSize: "50px",
-              lineHeight: "60px",
+              fontSize: "clamp(1.75rem, 6vw, 3.125rem)", // ~28px mobile -> 50px desktop
+              lineHeight: "1.2",
               letterSpacing: "0%",
               color: "#614338",
-              width: "791px",
-              maxWidth: "100%",
             }}
           >
             The Shoe Atelier Catalogue
@@ -56,12 +54,6 @@ export default function Maisons() {
                 sizes="(min-width: 768px) 22vw, 45vw"
                 className="object-cover"
               />
-              {/* <span
-                className="absolute left-4 top-4 font-display text-[13px] font-bold uppercase tracking-wide"
-                style={{ color: "#614338" }}
-              >
-                {brand.name}
-              </span> */}
             </div>
           ))}
         </div>

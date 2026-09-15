@@ -1,24 +1,41 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import BeforeAfterCard from "./BeforeAfterCard";
 import { BEFORE_AFTER } from "@/data/beforeAfter";
 
-const PER_PAGE = 3;
-
 export default function BeforeAfter() {
   const [pageIndex, setPageIndex] = useState(0);
+  const [perPage, setPerPage] = useState(3);
+
+  useEffect(() => {
+    const computePerPage = () => {
+      const w = window.innerWidth;
+      if (w < 640) return 1; // mobile: one card at a time
+      if (w < 1024) return 2; // tablet: two at a time
+      return 3; // desktop: three at a time
+    };
+
+    const handleResize = () => {
+      setPerPage(computePerPage());
+      setPageIndex(0); // avoid out-of-range page after resize
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const pages = useMemo(() => {
     const chunks = [];
-    for (let i = 0; i < BEFORE_AFTER.length; i += PER_PAGE) {
-      chunks.push(BEFORE_AFTER.slice(i, i + PER_PAGE));
+    for (let i = 0; i < BEFORE_AFTER.length; i += perPage) {
+      chunks.push(BEFORE_AFTER.slice(i, i + perPage));
     }
     return chunks;
-  }, []);
+  }, [perPage]);
 
   const totalPages = pages.length;
 
@@ -29,8 +46,11 @@ export default function BeforeAfter() {
     setPageIndex((p) => (p === totalPages - 1 ? 0 : p + 1));
   };
 
+  // clamp pageIndex if totalPages shrinks after resize
+  const safePageIndex = Math.min(pageIndex, totalPages - 1);
+
   return (
-    <section className="py-20 lg:py-28" style={{ backgroundColor: "#69483C" }}>
+  <section id="before-after" className="py-20 lg:py-28" style={{ backgroundColor: "#69483C" }}>
       <Container>
         <div className="flex flex-col items-center text-center">
           <SectionHeading
@@ -47,11 +67,19 @@ export default function BeforeAfter() {
         <div className="relative mt-12 overflow-hidden">
           <div
             className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${pageIndex * 100}%)` }}
+            style={{ transform: `translateX(-${safePageIndex * 100}%)` }}
           >
             {pages.map((page, i) => (
               <div key={i} className="w-full flex-shrink-0">
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                  className={`grid gap-6 ${
+                    perPage === 1
+                      ? "grid-cols-1 max-w-sm mx-auto"
+                      : perPage === 2
+                      ? "grid-cols-2"
+                      : "grid-cols-3"
+                  }`}
+                >
                   {page.map((item) => (
                     <BeforeAfterCard key={item.id} item={item} />
                   ))}
@@ -86,7 +114,7 @@ export default function BeforeAfter() {
                     className="h-[6px] w-[6px] rounded-full transition-all duration-300"
                     style={{
                       backgroundColor:
-                        i === pageIndex ? "#FFE5CD" : "rgba(255,229,205,0.4)",
+                        i === safePageIndex ? "#FFE5CD" : "rgba(255,229,205,0.4)",
                     }}
                   />
                 ))}

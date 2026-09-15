@@ -1,6 +1,7 @@
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import PromoModal from "@/components/modal/PromoModal";
+// import PromoModal from "@/components/modal/PromoModal";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Cities from "@/components/sections/Cities";
@@ -11,8 +12,8 @@ import Process from "@/components/sections/Process";
 import Reviews from "@/components/sections/Reviews";
 import MoreServices from "@/components/sections/MoreServices";
 import FAQ from "@/components/sections/FAQ";
-import CTA from "@/components/sections/CTA";
-import Contact from "@/components/sections/Contact";
+// import CTA from "@/components/sections/CTA";
+// import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
@@ -20,11 +21,11 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        {/* <About /> */}
         <Services />
-        <BeforeAfter />
-         <Maisons />
         {/* <Cities /> */}
+        <BeforeAfter />
+        {/* <About /> */}
+        <Maisons />
         <Process />
         <Reviews />
         <MoreServices />
