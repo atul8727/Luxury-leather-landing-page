@@ -36,20 +36,18 @@ export default function Process() {
           />
         </div>
         <h2
-  className="mx-auto text-center uppercase"
-  style={{
-    fontFamily: "'Roboto Slab', serif",
-    fontWeight: 700,
-    fontSize: "50px",
-    lineHeight: "60px",
-    letterSpacing: "0%",
-    color: "#614338",
-    width: "791px",
-    maxWidth: "100%",
-  }}
->
-  Your Restoration Journey, Made Simple
-</h2>
+          className="mx-auto w-full max-w-[791px] px-4 text-center uppercase sm:px-0"
+          style={{
+            fontFamily: "'Roboto Slab', serif",
+            fontWeight: 700,
+            fontSize: "clamp(1.75rem, 6vw, 3.125rem)", // ~28px mobile -> 50px desktop
+            lineHeight: "1.2",
+            letterSpacing: "0%",
+            color: "#614338",
+          }}
+        >
+          Your Restoration Journey, Made Simple
+        </h2>
 
         <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {PROCESS_STEPS.map((step) => (

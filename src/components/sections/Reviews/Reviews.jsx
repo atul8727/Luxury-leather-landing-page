@@ -51,10 +51,23 @@ export default function Reviews() {
           </div>
         </div>
 
-        {/* Review cards grid */}
-        <div className="mt-[29px] grid grid-cols-1 gap-x-[26px] gap-y-[30px] sm:grid-cols-2 xl:grid-cols-4">
+        {/* Review cards - horizontal scroll on mobile, grid from sm up */}
+        <div
+          className="
+            mt-[29px]
+            -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2
+            [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+            sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-x-[26px] sm:gap-y-[30px] sm:overflow-visible sm:px-0 sm:pb-0
+            xl:grid-cols-4
+          "
+        >
           {REVIEWS.map((review) => (
-            <ReviewCard key={review.id} review={review} />
+            <div
+              key={review.id}
+              className="w-[85%] shrink-0 snap-start sm:w-auto sm:shrink"
+            >
+              <ReviewCard review={review} />
+            </div>
           ))}
         </div>
       </div>
