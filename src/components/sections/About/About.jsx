@@ -1,59 +1,164 @@
-import Container from "@/components/ui/Container";
+"use client";
 
-function ShoeIcon({ className = "" }) {
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+
+export default function BeforeAfterCard({ item }) {
+  const [position, setPosition] = useState(50);
+  const [width, setWidth] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setWidth(entry.contentRect.width);
+      }
+    });
+    observer.observe(el);
+    setWidth(el.getBoundingClientRect().width);
+    return () => observer.disconnect();
+  }, []);
+
+  const updateFromClientX = useCallback((clientX) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = ((clientX - rect.left) / rect.width) * 100;
+    setPosition(Math.min(100, Math.max(0, pct)));
+  }, []);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMove = (e) => {
+      const clientX = e.touches?.[0]?.clientX ?? e.clientX;
+      if (clientX != null) updateFromClientX(clientX);
+    };
+    const handleUp = () => setIsDragging(false);
+
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
+    window.addEventListener("touchmove", handleMove, { passive: true });
+    window.addEventListener("touchend", handleUp);
+
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleUp);
+    };
+  }, [isDragging, updateFromClientX]);
+
+  const startDrag = (clientX) => {
+    setIsDragging(true);
+    updateFromClientX(clientX);
+  };
+
+  // Only the center handle can start a drag now — clicking/tapping
+  // anywhere else on the image does nothing.
+  const onHandlePointerDown = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startDrag(e.clientX);
+  };
+  const onHandleTouchStart = (e) => {
+    e.stopPropagation();
+    startDrag(e.touches[0].clientX);
+  };
+
+  const onKeyDown = (e) => {
+    if (e.key === "ArrowLeft") setPosition((p) => Math.max(0, p - 4));
+    if (e.key === "ArrowRight") setPosition((p) => Math.min(100, p + 4));
+  };
+
   return (
-    <svg
-      viewBox="0 0 32 20"
-      className={className}
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M4 14.5c0-3 2.6-5.8 6-6.6 1.4-2.4 3.9-4.4 6.6-4.9.7-.1 1.3.5 1.1 1.2l-.8 3c3.2.3 6.4 1.6 8.6 3.6.9.8.4 2.2-.8 2.2H6.2C4.9 13 4 13.6 4 14.5Z"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinejoin="round"
-      />
-      <path d="M4 14.5c0 1.4 1.3 2.5 3 2.5h18c1.7 0 3-.9 3-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <path d="M14 9.3c2.6.5 5 1.7 6.6 3.3" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-export default function About() {
-  return (
-    <section id="about-us" className="bg-[#FFF2E6] py-20 lg:py-28">
-      <Container>
-        <div className="mx-auto max-w-5xl text-center">
-          <ShoeIcon className="mx-auto h-5 w-8 text-gold" />
-
-          <span className="mt-3 inline-block text-[13px] font-medium tracking-[0.18em] text-ink-soft uppercase">
-         SHoes Services
-          </span>
-
-          <h2 className="mt-4 font-display text-[28px] leading-[1.15] text-ink sm:text-[34px] lg:text-[40px]">
-           Best Shoes Cleaning and Repair Service
-          </h2>
-
-          <p className="mt-5 text-[15px] leading-relaxed text-ink-soft">
-           Restore the original charm of your favorite footwear with our expert shoes cleaning 
-           service and shoes repair service. Whether your shoes are stained, discolored, or
-            showing signs of wear and tear, our skilled team uses advanced techniques and 
-            premium products to deliver outstanding results. As seen in the transformation above,
-             we bring dull and damaged shoes back to life—leaving them looking fresh, clean, 
-             and nearly new. At our facility, every pair receives personalized care and attention to 
-             detail. From deep cleaning and stain removal to material restoration and repairs, we ensure 
-             your shoes are treated with the highest standards of craftsmanship. Perfect for sneakers, 
-             designer footwear, and everyday wear, our services are trusted by those
-            who value quality and longevity. Give your shoes a second life with professionals who care.
-          </p>
-
-          <p className="mt-6 text-[15px] font-semibold text-ink">
-         Book your appointment today and experience the difference a premium shoe care service can make.
-          </p>
+    <div className="flex flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
+      <div
+        ref={containerRef}
+        className="relative aspect-[4/5] w-full touch-none overflow-hidden select-none bg-white"
+      >
+        {/* AFTER image - always full width, sits underneath */}
+        <div className="absolute inset-0">
+          <Image
+            src={item.after}
+            alt={`${item.title} - after restoration`}
+            fill
+            sizes="(min-width: 1024px) 30vw, 90vw"
+            className="pointer-events-none object-contain"
+            draggable={false}
+          />
         </div>
-      </Container>
-    </section>
+
+        {/* BEFORE image - clipped to slider position */}
+        <div
+          className="absolute inset-0 overflow-hidden"
+          style={{ width: `${position}%` }}
+        >
+          <div className="relative h-full" style={{ width: width || "100%" }}>
+            <Image
+              src={item.before}
+              alt={`${item.title} - before restoration`}
+              fill
+              sizes="(min-width: 1024px) 30vw, 90vw"
+              className="pointer-events-none object-contain"
+              draggable={false}
+            />
+          </div>
+        </div>
+
+        {/* Badges */}
+        <span className="pointer-events-none absolute left-3 top-3 z-20 rounded-full bg-ink/85 px-3 py-1 text-[10px] font-semibold tracking-[0.14em] text-cream uppercase shadow-sm">
+          Before
+        </span>
+        <span className="pointer-events-none absolute right-3 top-3 z-20 rounded-full bg-ink/85 px-3 py-1 text-[10px] font-semibold tracking-[0.14em] text-cream uppercase shadow-sm">
+          After
+        </span>
+
+        {/* Divider Line + Handle */}
+        <div
+          className="absolute inset-y-0 z-30 -translate-x-1/2"
+          style={{ left: `${position}%` }}
+        >
+          <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+            <img
+              src="/icons/Line 2.png"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="h-full w-full select-none object-fill"
+            />
+          </div>
+
+          <button
+            type="button"
+            aria-label="Drag to compare before and after"
+            role="slider"
+            aria-valuenow={Math.round(position)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            tabIndex={0}
+            onPointerDown={onHandlePointerDown}
+            onTouchStart={onHandleTouchStart}
+            onKeyDown={onKeyDown}
+            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            <img
+              src="/icons/Group 13.png"
+              alt=""
+              draggable={false}
+              className="h-10 w-10 select-none"
+            />
+          </button>
+        </div>
+      </div>
+      <p className="px-4 py-3 text-center font-display text-[15px] text-ink-soft">
+        {item.title}
+      </p>
+    </div>
   );
 }
