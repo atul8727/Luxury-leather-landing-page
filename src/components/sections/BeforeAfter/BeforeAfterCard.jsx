@@ -69,13 +69,6 @@ export default function BeforeAfterCard({ item }) {
     startDrag(e.touches[0].clientX);
   };
 
-  const onContainerPointerDown = (e) => {
-    startDrag(e.clientX);
-  };
-  const onContainerTouchStart = (e) => {
-    startDrag(e.touches[0].clientX);
-  };
-
   const onKeyDown = (e) => {
     if (e.key === "ArrowLeft") setPosition((p) => Math.max(0, p - 4));
     if (e.key === "ArrowRight") setPosition((p) => Math.min(100, p + 4));
@@ -85,9 +78,7 @@ export default function BeforeAfterCard({ item }) {
     <div className="flex flex-col overflow-hidden rounded-[22px] bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
       <div
         ref={containerRef}
-        className="relative aspect-[4/5] w-full touch-none overflow-hidden select-none bg-white"
-        onPointerDown={onContainerPointerDown}
-        onTouchStart={onContainerTouchStart}
+        className="relative aspect-[4/5] w-full overflow-hidden select-none bg-white"
       >
         {/* AFTER image - always full width, sits underneath */}
         <div className="absolute inset-0">
@@ -131,7 +122,15 @@ export default function BeforeAfterCard({ item }) {
           className="absolute inset-y-0 z-30 -translate-x-1/2"
           style={{ left: `${position}%` }}
         >
-          <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+          <div
+            className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+            }}
+          >
             <img
               src="/icons/Line 2.png"
               alt=""
@@ -140,6 +139,14 @@ export default function BeforeAfterCard({ item }) {
               className="h-full w-full select-none object-fill"
             />
           </div>
+
+          {/* Invisible hit-area around the line so it's grabbable too, without changing how it looks */}
+          <div
+            aria-hidden="true"
+            onPointerDown={onHandlePointerDown}
+            onTouchStart={onHandleTouchStart}
+            className="absolute inset-y-0 left-1/2 w-6 -translate-x-1/2 touch-none cursor-ew-resize"
+          />
 
           <button
             type="button"
@@ -152,7 +159,7 @@ export default function BeforeAfterCard({ item }) {
             onPointerDown={onHandlePointerDown}
             onTouchStart={onHandleTouchStart}
             onKeyDown={onKeyDown}
-            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+            className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 touch-none cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
           >
             <img
               src="/icons/Group 13.png"

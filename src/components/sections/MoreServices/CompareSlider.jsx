@@ -79,13 +79,6 @@ export default function CompareSlider({
     startDrag(e.touches[0].clientX);
   };
 
-  const onContainerPointerDown = (e) => {
-    startDrag(e.clientX);
-  };
-  const onContainerTouchStart = (e) => {
-    startDrag(e.touches[0].clientX);
-  };
-
   const onKeyDown = (e) => {
     if (e.key === "ArrowLeft") setPosition((p) => Math.max(0, p - 4));
     if (e.key === "ArrowRight") setPosition((p) => Math.min(100, p + 4));
@@ -94,9 +87,7 @@ export default function CompareSlider({
   return (
     <div
       ref={containerRef}
-      className={`relative aspect-square w-full touch-none overflow-hidden rounded-[24px] select-none bg-white ${className}`}
-      onPointerDown={onContainerPointerDown}
-      onTouchStart={onContainerTouchStart}
+      className={`relative aspect-square w-full overflow-hidden rounded-[24px] select-none bg-white ${className}`}
     >
       <div className="absolute inset-0">
         <Image
@@ -136,7 +127,15 @@ export default function CompareSlider({
         className="absolute inset-y-0 z-30 -translate-x-1/2"
         style={{ left: `${position}%` }}
       >
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]">
+        <div
+          className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+          }}
+        >
           <img
             src="/icons/Line 2.png"
             alt=""
@@ -145,6 +144,14 @@ export default function CompareSlider({
             className="h-full w-full select-none object-fill"
           />
         </div>
+
+        {/* Invisible hit-area around the line so it's grabbable too, without changing how it looks */}
+        <div
+          aria-hidden="true"
+          onPointerDown={onHandlePointerDown}
+          onTouchStart={onHandleTouchStart}
+          className="absolute inset-y-0 left-1/2 w-6 -translate-x-1/2 touch-none cursor-ew-resize"
+        />
 
         <button
           type="button"
@@ -157,7 +164,7 @@ export default function CompareSlider({
           onPointerDown={onHandlePointerDown}
           onTouchStart={onHandleTouchStart}
           onKeyDown={onKeyDown}
-          className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
+          className="absolute top-1/2 left-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 touch-none cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
         >
           <img
             src="/icons/Group 13.png"
