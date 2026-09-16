@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import SocialRail from "./SocialRail";
 import { SITE } from "@/lib/constants";
+import { OPEN_PROMO_MODAL_EVENT } from "@/components/modal/PromoModal";
 
 export default function Hero() {
   return (
@@ -33,7 +36,10 @@ export default function Hero() {
             cherished leather pieces carefully restored to look and feel their best.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
-            <Button href="#contact" variant="light">
+            <Button
+              variant="light"
+              onClick={() => window.dispatchEvent(new Event(OPEN_PROMO_MODAL_EVENT))}
+            >
               Get a Free Quote
               <ArrowRight size={16} strokeWidth={2} />
             </Button>

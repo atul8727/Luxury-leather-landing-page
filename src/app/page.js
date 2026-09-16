@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-// import PromoModal from "@/components/modal/PromoModal";
+import PromoModal from "@/components/modal/PromoModal";
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
 import Cities from "@/components/sections/Cities";
@@ -34,7 +34,7 @@ export default function Home() {
         {/* <Contact /> */}
       </main>
       <Footer />
-      {/* <PromoModal /> */}
+      <PromoModal />
     </>
   );
 }
