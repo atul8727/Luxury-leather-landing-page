@@ -1,8 +1,8 @@
 export const NAV_ITEMS = [
   { label: 'Services', href: '#services' },
-  { label: 'Cities', href: '#cities' },
+  { label: 'Cities', href: 'https://luxuryleatherfurniturecare.com/' },
   { label: 'Before & After', href: '#before-after' },
-  { label: 'About Us', href: '#about-us' },
+  { label: 'About Us', href: 'https://luxuryleatherfurniturecare.com/' },
   { label: 'Reviews', href: '#reviews' },
   { label: 'Contact', href: 'enquiry' },
 ];
