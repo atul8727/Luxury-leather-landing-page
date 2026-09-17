@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Loader2 } from 'lucide-react';
+
 import Button from '@/components/ui/Button';
 
 const SESSION_KEY = 'll-enquiry-seen';
@@ -20,6 +21,7 @@ export default function EnquiryModal() {
   const [error, setError] = useState('');
 
   const [form, setForm] = useState({
+    name: '',
     email: '',
     phone: '',
     brand: '',
@@ -27,13 +29,9 @@ export default function EnquiryModal() {
 
   const dialogRef = useRef(null);
 
-  // ==========================================
-  // Auto open once per session
-  // ==========================================
-
-  // ==========================================
-  // Open enquiry modal from anywhere
-  // ==========================================
+  /* ==========================================
+     Open enquiry modal from anywhere
+  ========================================== */
   useEffect(() => {
     const onOpenRequest = () => {
       setOpen(true);
@@ -47,9 +45,9 @@ export default function EnquiryModal() {
     };
   }, []);
 
-  // ==========================================
-  // Close modal
-  // ==========================================
+  /* ==========================================
+     Close modal
+  ========================================== */
   const close = () => {
     if (submitting) return;
 
@@ -62,9 +60,9 @@ export default function EnquiryModal() {
     }
   };
 
-  // ==========================================
-  // Escape key + body scroll lock
-  // ==========================================
+  /* ==========================================
+     Escape key + body scroll lock
+  ========================================== */
   useEffect(() => {
     if (!open) return;
 
@@ -82,14 +80,13 @@ export default function EnquiryModal() {
 
     return () => {
       document.removeEventListener('keydown', onKeyDown);
-
       document.body.style.overflow = '';
     };
   }, [open, submitting]);
 
-  // ==========================================
-  // Input change
-  // ==========================================
+  /* ==========================================
+     Input change
+  ========================================== */
   const handleChange = (field) => (e) => {
     setForm((prev) => ({
       ...prev,
@@ -101,9 +98,9 @@ export default function EnquiryModal() {
     }
   };
 
-  // ==========================================
-  // Submit enquiry
-  // ==========================================
+  /* ==========================================
+     Submit enquiry
+  ========================================== */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -111,29 +108,38 @@ export default function EnquiryModal() {
 
     setError('');
 
+    const name = form.name.trim();
     const email = form.email.trim();
     const phone = form.phone.trim();
     const brand = form.brand.trim();
 
-    // ==========================================
-    // Validate email
-    // ==========================================
+    /* ==========================================
+       Validate Name
+    ========================================== */
+    if (!name) {
+      setError('Please enter your name.');
+      return;
+    }
+
+    /* ==========================================
+       Validate Email
+    ========================================== */
     if (!EMAIL_RE.test(email)) {
       setError('Please enter a valid email.');
       return;
     }
 
-    // ==========================================
-    // Validate phone
-    // ==========================================
+    /* ==========================================
+       Validate Phone
+    ========================================== */
     if (phone.replace(/\D/g, '').length < 7) {
       setError('Please enter a valid phone number.');
       return;
     }
 
-    // ==========================================
-    // Validate brand
-    // ==========================================
+    /* ==========================================
+       Validate Brand
+    ========================================== */
     if (!brand) {
       setError('Please tell us the product brand.');
       return;
@@ -142,24 +148,25 @@ export default function EnquiryModal() {
     setSubmitting(true);
 
     try {
-      // ==========================================
-      // Send enquiry to backend
-      // ==========================================
+      /* ==========================================
+         Send enquiry to backend
+      ========================================== */
       const res = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          name,
           email,
           phone,
           brand,
         }),
       });
 
-      // ==========================================
-      // Check response type
-      // ==========================================
+      /* ==========================================
+         Check response type
+      ========================================== */
       const contentType = res.headers.get('content-type') || '';
 
       if (!contentType.includes('application/json')) {
@@ -168,41 +175,42 @@ export default function EnquiryModal() {
 
       const data = await res.json();
 
-      // ==========================================
-      // Backend error
-      // ==========================================
+      /* ==========================================
+         Backend error
+      ========================================== */
       if (!res.ok || !data.ok) {
         setError(data.error || 'Something went wrong. Please try again.');
 
         return;
       }
 
-      // ==========================================
-      // Mark enquiry as submitted
-      // ==========================================
+      /* ==========================================
+         Mark enquiry as submitted
+      ========================================== */
       try {
         sessionStorage.setItem(SESSION_KEY, '1');
       } catch {
-        // Ignore
+        // Ignore sessionStorage errors
       }
 
-      // ==========================================
-      // Close modal
-      // ==========================================
+      /* ==========================================
+         Close modal
+      ========================================== */
       setOpen(false);
 
-      // ==========================================
-      // Pass enquiry details to thank-you page
-      // ==========================================
+      /* ==========================================
+         Pass enquiry details to thank-you page
+      ========================================== */
       const params = new URLSearchParams({
+        name,
         email,
         phone,
         brand,
       });
 
-      // ==========================================
-      // Redirect to thank-you page
-      // ==========================================
+      /* ==========================================
+         Redirect
+      ========================================== */
       router.push(`/thank-you?${params.toString()}`);
     } catch (error) {
       console.error('Enquiry form error:', error);
@@ -277,6 +285,26 @@ export default function EnquiryModal() {
 
               {/* Form */}
               <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-4">
+                {/* Name */}
+                <div>
+                  <label htmlFor="enquiry-name" className="mb-1.5 block text-[13px] font-medium text-ink">
+                    Name <span className="text-red-600">*</span>
+                  </label>
+
+                  <input
+                    id="enquiry-name"
+                    name="name"
+                    required
+                    type="text"
+                    autoComplete="name"
+                    placeholder="Your name"
+                    value={form.name}
+                    onChange={handleChange('name')}
+                    disabled={submitting}
+                    className="w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-[14px] text-ink placeholder:text-ink-soft/60 focus:border-ink focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                </div>
+
                 {/* Email */}
                 <div>
                   <label htmlFor="enquiry-email" className="mb-1.5 block text-[13px] font-medium text-ink">
@@ -349,7 +377,6 @@ export default function EnquiryModal() {
                   {submitting ? (
                     <>
                       <Loader2 size={17} className="animate-spin" />
-
                       <span>Submitting...</span>
                     </>
                   ) : (

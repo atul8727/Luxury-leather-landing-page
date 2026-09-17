@@ -33,9 +33,9 @@ export default function Reviews() {
           cache: 'no-store',
         });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch reviews');
-        }
+        // if (!response.ok) {
+        //   throw new Error('Failed to fetch reviews');
+        // }
 
         const data = await response.json();
 

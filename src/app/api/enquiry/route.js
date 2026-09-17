@@ -11,9 +11,21 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
+    const name = String(body.name || '').trim();
     const email = String(body.email || '').trim();
     const phone = String(body.phone || '').trim();
     const brand = String(body.brand || '').trim();
+
+    // Validate name
+    if (!name) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'Please enter your name.',
+        },
+        { status: 400 },
+      );
+    }
 
     // Validate email
     if (!EMAIL_RE.test(email)) {
@@ -51,6 +63,16 @@ export async function POST(request) {
     }
 
     // Length validation
+    if (name.length > 100) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: 'Name is too long.',
+        },
+        { status: 400 },
+      );
+    }
+
     if (email.length > 254) {
       return NextResponse.json(
         {
@@ -109,6 +131,7 @@ export async function POST(request) {
     const toAddress = process.env.ENQUIRY_TO_EMAIL || process.env.SMTP_USER;
 
     // Escape values before inserting into HTML
+    const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
     const safePhone = escapeHtml(phone);
     const safeBrand = escapeHtml(brand);
@@ -116,12 +139,15 @@ export async function POST(request) {
     // Send email
     await transporter.sendMail({
       from: `"The Leather Laundry Website" <${process.env.SMTP_USER}>`,
+
       to: toAddress,
+
       subject: `New Website Enquiry - ${brand}`,
 
       text: `
 New Website Enquiry
 
+Customer Name: ${name}
 Customer Email: ${email}
 Phone Number: ${phone}
 Product Brand: ${brand}
@@ -151,6 +177,23 @@ This enquiry was submitted through The Leather Laundry website.
             border-collapse: collapse;
             font-size: 15px;
           ">
+
+            <tr>
+              <td style="
+                padding: 12px;
+                font-weight: 600;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                Customer Name
+              </td>
+
+              <td style="
+                padding: 12px;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                ${safeName}
+              </td>
+            </tr>
 
             <tr>
               <td style="
