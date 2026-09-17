@@ -47,7 +47,7 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   /* --------------------------------
-     Normal navigation
+     Normal internal navigation
   -------------------------------- */
   const handleNavClick = (e, href) => {
     e.preventDefault();
@@ -59,7 +59,6 @@ export default function Navbar() {
 
   /* --------------------------------
      Contact / Enquiry Modal
-     Same method as Hero
   -------------------------------- */
   const handleContactClick = (e) => {
     e.preventDefault();
@@ -67,6 +66,35 @@ export default function Navbar() {
     setMobileOpen(false);
 
     window.dispatchEvent(new Event(OPEN_ENQUIRY_MODAL_EVENT));
+  };
+
+  /* --------------------------------
+     External URL check
+  -------------------------------- */
+  const isExternalUrl = (href) => {
+    return /^https?:\/\//i.test(href);
+  };
+
+  /* --------------------------------
+     Navigation click handler
+  -------------------------------- */
+  const handleItemClick = (e, item) => {
+    const isContact = item.label.toLowerCase() === 'contact';
+
+    // Contact opens enquiry popup
+    if (isContact) {
+      handleContactClick(e);
+      return;
+    }
+
+    // External links should work normally
+    if (isExternalUrl(item.href)) {
+      setMobileOpen(false);
+      return;
+    }
+
+    // Internal #section links
+    handleNavClick(e, item.href);
   };
 
   /* --------------------------------
@@ -86,8 +114,8 @@ export default function Navbar() {
     return (
       <li key={item.label}>
         <a
-          href={item.href}
-          onClick={isContact ? handleContactClick : (e) => handleNavClick(e, item.href)}
+          href={isContact ? '#' : item.href}
+          onClick={(e) => handleItemClick(e, item)}
           className="
             relative
             whitespace-nowrap
@@ -164,7 +192,15 @@ export default function Navbar() {
           </a>
 
           {/* RIGHT NAVIGATION */}
-          <div className="hidden items-center justify-end gap-8 lg:flex">
+          <div
+            className="
+              hidden
+              items-center
+              justify-end
+              gap-8
+              lg:flex
+            "
+          >
             <nav aria-label="Secondary">
               <ul className="flex items-center justify-end gap-8">{rightItems.map(renderLink)}</ul>
             </nav>

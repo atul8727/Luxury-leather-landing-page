@@ -1,10 +1,25 @@
 export const NAV_ITEMS = [
   { label: 'Services', href: '#services' },
-  { label: 'Cities', href: 'https://luxuryleatherfurniturecare.com/' },
-  { label: 'Before & After', href: '#before-after' },
-  { label: 'About Us', href: 'https://luxuryleatherfurniturecare.com/' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Contact', href: 'enquiry' },
+  {
+    label: 'Cities',
+    href: 'https://luxuryleatherfurniturecare.com/',
+  },
+  {
+    label: 'Before & After',
+    href: '#before-after',
+  },
+  {
+    label: 'About Us',
+    href: 'https://luxuryleatherfurniturecare.com/',
+  },
+  {
+    label: 'Reviews',
+    href: '#reviews',
+  },
+  {
+    label: 'Contact',
+    href: 'enquiry',
+  },
 ];
 
 export const SITE = {
@@ -17,10 +32,22 @@ export const SITE = {
 };
 
 export const SOCIAL_LINKS = [
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'Facebook', href: 'https://facebook.com' },
-  { label: 'WhatsApp', href: 'https://wa.me/919289238864' },
-  { label: 'YouTube', href: 'https://youtube.com' },
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com',
+  },
+  {
+    label: 'Facebook',
+    href: 'https://facebook.com',
+  },
+  {
+    label: 'WhatsApp',
+    href: 'https://wa.me/919289238864',
+  },
+  {
+    label: 'YouTube',
+    href: 'https://youtube.com',
+  },
 ];
 
 export const NAVBAR_HEIGHT = 84;
