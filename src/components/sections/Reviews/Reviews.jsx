@@ -39,7 +39,7 @@ export default function Reviews() {
 
         const data = await response.json();
 
-        console.log('Google Reviews:', data);
+        // console.log('Google Reviews:', data);
 
         if (data.success) {
           setReviews(data.reviews || []);

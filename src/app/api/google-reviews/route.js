@@ -15,7 +15,7 @@ export async function GET() {
     if (!response.ok) {
       const errorText = await response.text();
 
-      console.error('Outscraper API Error:', errorText);
+      //  console.error('Outscraper API Error:', errorText);
 
       return NextResponse.json(
         {
@@ -28,7 +28,7 @@ export async function GET() {
 
     const data = await response.json();
 
-    console.log('Outscraper Response:', data);
+    //console.log('Outscraper Response:', data);
 
     /*
      * Outscraper response contains review information
@@ -111,7 +111,7 @@ export async function GET() {
       reviews,
     });
   } catch (error) {
-    console.error('Outscraper Reviews Error:', error);
+    //console.error('Outscraper Reviews Error:', error);
 
     return NextResponse.json(
       {

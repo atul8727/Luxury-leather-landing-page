@@ -30,23 +30,6 @@ export default function EnquiryModal() {
   // ==========================================
   // Auto open once per session
   // ==========================================
-  // useEffect(() => {
-  //   let alreadySeen = false;
-
-  //   try {
-  //     alreadySeen = sessionStorage.getItem(SESSION_KEY) === '1';
-  //   } catch {
-  //     alreadySeen = false;
-  //   }
-
-  //   if (alreadySeen) return;
-
-  //   const timer = setTimeout(() => {
-  //     setOpen(true);
-  //   }, 2500);
-
-  //   return () => clearTimeout(timer);
-  // }, []);
 
   // ==========================================
   // Open enquiry modal from anywhere

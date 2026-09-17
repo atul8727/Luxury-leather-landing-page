@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Mail, Phone, MapPin } from "lucide-react";
-import Container from "@/components/ui/Container";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Button from "@/components/ui/Button";
-import { SITE } from "@/lib/constants";
+import { useState } from 'react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import Container from '@/components/ui/Container';
+import SectionHeading from '@/components/ui/SectionHeading';
+import Button from '@/components/ui/Button';
+import { SITE } from '@/lib/constants';
+import { OPEN_ENQUIRY_MODAL_EVENT } from '@/components/modal/EnquiryModal';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -24,16 +25,21 @@ export default function Contact() {
             eyebrow="Get In Touch"
             title="Get a Free Quote"
             description="Tell us about the piece you'd like restored and our team will get back to you with a personalised quote, usually within one business day."
+            onClick={() => window.dispatchEvent(new Event(OPEN_ENQUIRY_MODAL_EVENT))}
           />
 
           <ul className="mt-8 flex flex-col gap-4">
             <li className="flex items-center gap-3 text-[14.5px] text-ink-soft">
               <Phone size={17} strokeWidth={1.75} className="text-ink" />
-              <a href={SITE.phoneHref} className="hover:text-ink">{SITE.phone}</a>
+              <a href={SITE.phoneHref} className="hover:text-ink">
+                {SITE.phone}
+              </a>
             </li>
             <li className="flex items-center gap-3 text-[14.5px] text-ink-soft">
               <Mail size={17} strokeWidth={1.75} className="text-ink" />
-              <a href={SITE.emailHref} className="hover:text-ink">{SITE.email}</a>
+              <a href={SITE.emailHref} className="hover:text-ink">
+                {SITE.email}
+              </a>
             </li>
             <li className="flex items-center gap-3 text-[14.5px] text-ink-soft">
               <MapPin size={17} strokeWidth={1.75} className="text-ink" />
@@ -46,9 +52,7 @@ export default function Contact() {
           {submitted ? (
             <div className="flex h-full min-h-[280px] flex-col items-center justify-center gap-2 text-center">
               <h3 className="font-display text-[20px] text-ink">Thank you</h3>
-              <p className="text-[14.5px] text-ink-soft">
-                We&apos;ve received your request and will reach out shortly.
-              </p>
+              <p className="text-[14.5px] text-ink-soft">We&apos;ve received your request and will reach out shortly.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">

@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { AnimatePresence, motion } from "framer-motion";
-import { Phone } from "lucide-react";
-import { NAV_ITEMS, SITE } from "@/lib/constants";
-import Button from "@/components/ui/Button";
+import { AnimatePresence, motion } from 'framer-motion';
+import { Phone } from 'lucide-react';
+import { NAV_ITEMS, SITE } from '@/lib/constants';
+import Button from '@/components/ui/Button';
+import { OPEN_ENQUIRY_MODAL_EVENT } from '@/components/modal/EnquiryModal';
 
 export default function MobileMenu({ open, onNavClick }) {
   return (
@@ -13,7 +14,7 @@ export default function MobileMenu({ open, onNavClick }) {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
           className="fixed inset-x-0 top-[76px] z-40 bg-navbar lg:hidden"
         >
           <nav aria-label="Mobile" className="flex flex-col px-6 pb-8 pt-4">
@@ -30,19 +31,11 @@ export default function MobileMenu({ open, onNavClick }) {
                 </li>
               ))}
             </ul>
-            <a
-              href={SITE.phoneHref}
-              className="mt-5 flex items-center gap-2 text-[14px] font-medium text-navbar-text/90"
-            >
+            <a href={SITE.phoneHref} className="mt-5 flex items-center gap-2 text-[14px] font-medium text-navbar-text/90">
               <Phone size={16} strokeWidth={1.75} />
               {SITE.phone}
             </a>
-            <Button
-              href="#contact"
-              variant="light"
-              onClick={(e) => onNavClick(e, "#contact")}
-              className="mt-5 w-full"
-            >
+            <Button href="#contact" variant="light" onClick={() => window.dispatchEvent(new Event(OPEN_ENQUIRY_MODAL_EVENT))} className="mt-5 w-full">
               Get a Free Quote
             </Button>
           </nav>
