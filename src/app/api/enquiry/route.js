@@ -1,27 +1,32 @@
-import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function escapeHtml(value) {
-  return String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 export async function POST(request) {
   try {
     const body = await request.json();
 
-    const name = String(body.name || '').trim();
-    const email = String(body.email || '').trim();
-    const phone = String(body.phone || '').trim();
-    const brand = String(body.brand || '').trim();
+    const name = String(body.name || "").trim();
+    const email = String(body.email || "").trim();
+    const phone = String(body.phone || "").trim();
+    const brand = String(body.brand || "").trim();
 
     // Validate name
     if (!name) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Please enter your name.',
+          error: "Please enter your name.",
         },
         { status: 400 },
       );
@@ -32,20 +37,20 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Please enter a valid email.',
+          error: "Please enter a valid email.",
         },
         { status: 400 },
       );
     }
 
     // Validate phone
-    const phoneDigits = phone.replace(/\D/g, '');
+    const phoneDigits = phone.replace(/\D/g, "");
 
     if (phoneDigits.length < 7 || phoneDigits.length > 15) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Please enter a valid phone number.',
+          error: "Please enter a valid phone number.",
         },
         { status: 400 },
       );
@@ -56,7 +61,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Please tell us the product brand.',
+          error: "Please tell us the product brand.",
         },
         { status: 400 },
       );
@@ -67,7 +72,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Name is too long.',
+          error: "Name is too long.",
         },
         { status: 400 },
       );
@@ -77,7 +82,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Email address is too long.',
+          error: "Email address is too long.",
         },
         { status: 400 },
       );
@@ -87,7 +92,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Product brand is too long.',
+          error: "Product brand is too long.",
         },
         { status: 400 },
       );
@@ -97,20 +102,24 @@ export async function POST(request) {
       return NextResponse.json(
         {
           ok: false,
-          error: 'Phone number is too long.',
+          error: "Phone number is too long.",
         },
         { status: 400 },
       );
     }
 
     // Check SMTP configuration
-    if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.error('SMTP environment variables are missing.');
+    if (
+      !process.env.SMTP_HOST ||
+      !process.env.SMTP_USER ||
+      !process.env.SMTP_PASS
+    ) {
+      console.error("SMTP environment variables are missing.");
 
       return NextResponse.json(
         {
           ok: false,
-          error: 'Email service is not configured.',
+          error: "Email service is not configured.",
         },
         { status: 500 },
       );
@@ -142,10 +151,10 @@ export async function POST(request) {
 
       to: toAddress,
 
-      subject: `New Website Enquiry - ${brand}`,
+      subject: `Luxury Leather and Furniture Care - ${brand}`,
 
       text: `
-New Website Enquiry
+Luxury Leather and Furniture Care
 
 Customer Name: ${name}
 Customer Email: ${email}
@@ -169,7 +178,7 @@ This enquiry was submitted through The Leather Laundry website.
             margin: 0 0 24px;
             font-size: 24px;
           ">
-            New Website Enquiry
+            Luxury Leather and Furniture Care
           </h2>
 
           <table style="
@@ -261,19 +270,19 @@ This enquiry was submitted through The Leather Laundry website.
       `,
     });
 
-    console.log('Enquiry email sent successfully.');
+    console.log("Enquiry email sent successfully.");
 
     return NextResponse.json({
       ok: true,
-      message: 'Your enquiry has been submitted successfully.',
+      message: "Your enquiry has been submitted successfully.",
     });
   } catch (error) {
-    console.error('Enquiry mailer error:', error);
+    console.error("Enquiry mailer error:", error);
 
     return NextResponse.json(
       {
         ok: false,
-        error: 'Unable to send your enquiry. Please try again.',
+        error: "Unable to send your enquiry. Please try again.",
       },
       { status: 500 },
     );

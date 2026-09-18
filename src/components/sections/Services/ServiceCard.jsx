@@ -102,7 +102,7 @@ export default function ServiceCard({ service, index }) {
               alt={`${service.title} - before`}
               fill
               sizes="(min-width: 1024px) 45vw, 90vw"
-              className="pointer-events-none object-contain "
+              className="pointer-events-none object-contain  "
               draggable={false}
             />
           </div>
