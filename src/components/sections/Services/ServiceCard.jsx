@@ -83,26 +83,26 @@ export default function ServiceCard({ service, index }) {
     <div className="grid grid-cols-1 items-start gap-8 py-12 sm:gap-12 lg:grid-cols-2 lg:gap-16 lg:py-16">
       <div ref={containerRef} className={`relative aspect-[4/3] w-full overflow-hidden bg-white select-none ${reversed ? 'lg:order-2' : ''}`}>
         {/* After Image — full background, revealed on the RIGHT of the line */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-white">
           <Image
             src={service.after}
             alt={`${service.title} - after`}
             fill
             sizes="(min-width: 1024px) 45vw, 90vw"
-            className="pointer-events-none object-cover"
+            className="pointer-events-none object-contain  "
             draggable={false}
           />
         </div>
 
         {/* Before Image — clipped overlay, revealed on the LEFT of the line */}
-        <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${position}%` }}>
+        <div className="absolute inset-y-0 left-0 overflow-hidden bg-white" style={{ width: `${position}%` }}>
           <div className="relative h-full" style={{ width: width || '100%' }}>
             <Image
               src={service.before}
               alt={`${service.title} - before`}
               fill
               sizes="(min-width: 1024px) 45vw, 90vw"
-              className="pointer-events-none object-cover"
+              className="pointer-events-none object-contain "
               draggable={false}
             />
           </div>
