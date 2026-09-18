@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function BeforeAfterCard({ item }) {
   const [position, setPosition] = useState(50);
@@ -65,23 +65,23 @@ export default function BeforeAfterCard({ item }) {
       setIsDragging(false);
     };
 
-    window.addEventListener('pointermove', handleMove);
-    window.addEventListener('pointerup', handleUp);
-    window.addEventListener('pointercancel', handleUp);
+    window.addEventListener("pointermove", handleMove);
+    window.addEventListener("pointerup", handleUp);
+    window.addEventListener("pointercancel", handleUp);
 
-    window.addEventListener('touchmove', handleMove, {
+    window.addEventListener("touchmove", handleMove, {
       passive: true,
     });
 
-    window.addEventListener('touchend', handleUp);
+    window.addEventListener("touchend", handleUp);
 
     return () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerup', handleUp);
-      window.removeEventListener('pointercancel', handleUp);
+      window.removeEventListener("pointermove", handleMove);
+      window.removeEventListener("pointerup", handleUp);
+      window.removeEventListener("pointercancel", handleUp);
 
-      window.removeEventListener('touchmove', handleMove);
-      window.removeEventListener('touchend', handleUp);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleUp);
     };
   }, [isDragging, updateFromClientX]);
 
@@ -112,22 +112,22 @@ export default function BeforeAfterCard({ item }) {
      Keyboard controls
   -------------------------------- */
   const onKeyDown = (e) => {
-    if (e.key === 'ArrowLeft') {
+    if (e.key === "ArrowLeft") {
       e.preventDefault();
       setPosition((p) => Math.max(0, p - 4));
     }
 
-    if (e.key === 'ArrowRight') {
+    if (e.key === "ArrowRight") {
       e.preventDefault();
       setPosition((p) => Math.min(100, p + 4));
     }
 
-    if (e.key === 'Home') {
+    if (e.key === "Home") {
       e.preventDefault();
       setPosition(0);
     }
 
-    if (e.key === 'End') {
+    if (e.key === "End") {
       e.preventDefault();
       setPosition(100);
     }
@@ -139,7 +139,10 @@ export default function BeforeAfterCard({ item }) {
           IMAGE CONTAINER
           NO aspect-ratio here
       ===================================== */}
-      <div ref={containerRef} className="relative w-full overflow-hidden select-none bg-white">
+      <div
+        ref={containerRef}
+        className="relative w-full overflow-hidden select-none "
+      >
         {/* -------------------------------------
             AFTER IMAGE
         ------------------------------------- */}
@@ -165,7 +168,7 @@ export default function BeforeAfterCard({ item }) {
           <div
             className="relative h-full"
             style={{
-              width: width || '100%',
+              width: width || "100%",
             }}
           >
             <Image
@@ -207,11 +210,19 @@ export default function BeforeAfterCard({ item }) {
           <div
             className="pointer-events-none absolute inset-y-0 left-1/2 h-full w-[3px] -translate-x-1/2 bg-white/80 shadow-[0_0_4px_rgba(0,0,0,0.35)]"
             style={{
-              maskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)',
+              maskImage:
+                "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
             }}
           >
-            <img src="/icons/Line 2.png" alt="" aria-hidden="true" draggable={false} className="h-full w-full select-none object-fill" />
+            <img
+              src="/icons/Line 2.png"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              className="h-full w-full select-none object-fill"
+            />
           </div>
 
           {/* Hit area */}
@@ -237,7 +248,12 @@ export default function BeforeAfterCard({ item }) {
             onKeyDown={onKeyDown}
             className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 touch-none cursor-ew-resize items-center justify-center transition-transform duration-150 hover:scale-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink"
           >
-            <img src="/icons/Group 13.png" alt="" draggable={false} className="h-10 w-10 select-none" />
+            <img
+              src="/icons/Group 13.png"
+              alt=""
+              draggable={false}
+              className="h-10 w-10 select-none"
+            />
           </button>
         </div>
       </div>
@@ -245,7 +261,9 @@ export default function BeforeAfterCard({ item }) {
       {/* =====================================
           TITLE
       ===================================== */}
-      <p className="m-0 px-4 py-1.5 text-center font-display text-[15px] leading-tight text-ink-soft">{item.title}</p>
+      <p className="m-0 px-4 py-1.5 text-center font-display text-[15px] leading-tight text-ink-soft">
+        {item.title}
+      </p>
     </div>
   );
 }
