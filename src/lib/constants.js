@@ -10,7 +10,7 @@ export const NAV_ITEMS = [
   },
   {
     label: 'About Us',
-    href: 'https://luxuryleatherfurniturecare.com/',
+    href: 'https://luxuryleatherfurniturecare.com/about-us/',
   },
   {
     label: 'Reviews',
