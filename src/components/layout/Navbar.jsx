@@ -110,12 +110,14 @@ export default function Navbar() {
   -------------------------------- */
   const renderLink = (item) => {
     const isContact = item.label.toLowerCase() === 'contact';
+    const isExternal = !isContact && isExternalUrl(item.href);
 
     return (
       <li key={item.label}>
         <a
           href={isContact ? '#' : item.href}
           onClick={(e) => handleItemClick(e, item)}
+          {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           className="
             relative
             whitespace-nowrap
