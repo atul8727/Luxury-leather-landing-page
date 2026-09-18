@@ -23,8 +23,8 @@ export const SERVICE_CATEGORIES = [
       "Restore the original charm of your favourite footwear with our expert shoes cleaning service and shoes repair service. Whether your shoes are stained, discoloured, or showing signs of wear and tear, our skilled team uses advanced techniques and premium products to deliver outstanding results. As seen in the transformation above, we bring dull and damaged shoes back to life — leaving them looking fresh, clean, and nearly new. At our facility, every pair receives personalised care and attention to detail. From deep cleaning and stain removal to material restoration and repairs, we ensure your shoes are treated with the highest standards of craftsmanship. Perfect for sneakers, designer footwear, and everyday wear, our services are trusted by those who value quality and longevity. Give your shoes a second life with professionals who care.",
     highlight:
       "Book your appointment today and experience the difference a premium shoe care service can make.",
-    before: "/images/OurServices/Shoes - Before.jpg",
-    after: "/images/OurServices/Shoes - After.jpg",
+    before: "/images/OurServices/Shoes - Before.png",
+    after: "/images/OurServices/Shoes - After.png",
     beforeAlt: "Shoes before restoration",
     afterAlt: "Shoes after restoration",
   },
@@ -38,8 +38,8 @@ export const SERVICE_CATEGORIES = [
       "Bring back the elegance and comfort of your leather furniture with our expert leather sofa cleaning and repair services. Whether your sofa is stained, scratched, faded, or showing signs of age, our skilled team uses advanced restoration techniques and premium leather-care products to achieve exceptional results. From deep cleaning and conditioning to colour restoration and precise repairs, we restore the natural beauty, suppleness, and strength of your leather. We specialise in Italian leather, nubuck, suede, and vintage pieces — ensuring each receives personalised care and attention to detail. Our process not only revives the appearance of your sofa but also protects it against future wear, extending its life and preserving its luxurious feel.",
     highlight:
       "Trusted by clients across India, we deliver a royal finish that reflects true craftsmanship and style.",
-    before: "/images/OurServices/Sofa - Before.jpeg",
-    after: "/images/OurServices/Sofa - After.jpeg",
+    before: "/images/OurServices/Sofa - Before.png",
+    after: "/images/OurServices/Sofa - After.png",
     beforeAlt: "Sofa before restoration",
     afterAlt: "Sofa after restoration",
   },
@@ -52,8 +52,8 @@ export const SERVICE_CATEGORIES = [
     description:
       "Your favourite leather jacket or coat is more than just clothing — it's a statement of style. But over time, regular wear can cause fading, stains, scratches, and general wear and tear. At Luxury Leather & Furniture Care, our skilled team specialises in restoring these timeless pieces to their original beauty with precision and care. We understand that every leather jacket or coat is unique. Different brands and materials require tailored treatments for perfect results — which is why we customise our cleaning and repair process to suit your item's exact needs. Our professional restoration service includes deep cleaning, conditioning, stain removal, odour treatment, and rejuvenation to bring back softness, colour, and shine. Whether it's everyday wear or a luxury designer piece, we treat your leather with unmatched craftsmanship to ensure longevity and comfort.",
     highlight: "Give your jacket the professional care it deserives.",
-    before: "/images/OurServices/Jacket - Before.jpg",
-    after: "/images/OurServices/jacket - After.jpg",
+    before: "/images/OurServices/Jacket - Before.png",
+    after: "/images/OurServices/jacket - After.png",
     beforeAlt: "Jacket before restoration",
     afterAlt: "Jacket after restoration",
   },
