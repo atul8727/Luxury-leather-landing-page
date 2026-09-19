@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container";
 import { EmailGlyph, PhoneGlyph } from "@/components/ui/SocialGlyphs";
 import { SITE } from "@/lib/constants";
 import { CITIES } from "@/data/cities";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { label: "Home", href: "#top" },
@@ -15,10 +16,10 @@ const NAV_LINKS = [
 ];
 
 const SOCIAL_ICONS = [
-  { label: "Facebook", href: "#", src: "/icons/Group 76.png" },
-  { label: "Twitter", href: "#", src: "/icons/Group 77.png" },
-  { label: "LinkedIn", href: "#", src: "/icons/Group 78.png" },
-  { label: "Instagram", href: "#", src: "/icons/Group 79.png" },
+  { label: "Facebook", href: "https://www.facebook.com/luxuryleatherandfurniturecare", src: "/icons/Group 76.png" },
+  { label: "Twitter", href: "https://x.com/luxuryleatherfc?mx=2", src: "/icons/Group 77.png" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/luxury-leather-and-furniture-care/home/", src: "/icons/Group 78.png" },
+  { label: "Instagram", href: "https://www.instagram.com/luxuryleatherandfurniturecare/", src: "/icons/Group 79.png" },
 ];
 
 export default function Footer() {
@@ -156,10 +157,10 @@ export default function Footer() {
             Copyright © {new Date().getFullYear()} {SITE.name}
           </span>
           <div className="flex items-center gap-6">
-            <a href="#" className="transition-colors hover:text-[#FFE6D1]">
-              Privacy Policy
-            </a>
-            <a href="#" className="transition-colors hover:text-[#FFE6D1]">
+             <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#FFE6D1]">
+  Privacy Policy
+</Link>
+            <a href="https://luxuryleatherfurniturecare.com/terms-and-conditions/" className="transition-colors hover:text-[#FFE6D1]">
               Terms &amp; Conditions
             </a>
           </div>
