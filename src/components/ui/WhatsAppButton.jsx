@@ -1,19 +1,22 @@
 // Floating WhatsApp button (bottom-right corner, always visible while scrolling)
+// Number .env ke NEXT_PUBLIC_WHATSAPP_NUMBER se aata hai (constants.js ke through)
 
-// Country code ke saath number, bina "+" aur spaces ke.
-// Abhi site ka number +91 92892 38864 use ho raha hai.
-const WHATSAPP_NUMBER = "919289238864";
+import { WHATSAPP_NUMBER } from "@/lib/constants";
+
 const WHATSAPP_MESSAGE =
   "Hello, I'd like to enquire about your leather care services.";
 
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  WHATSAPP_MESSAGE
-)}`;
-
 export default function WhatsAppButton() {
+  // Number .env mein set nahi hai to button dikhana hi nahi
+  if (!WHATSAPP_NUMBER) return null;
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    WHATSAPP_MESSAGE
+  )}`;
+
   return (
     <a
-      href={WHATSAPP_URL}
+      href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with us on WhatsApp"

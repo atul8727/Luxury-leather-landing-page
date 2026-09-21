@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { WHATSAPP_NUMBER } from '@/lib/constants';
 
 export default function ThankYouContent() {
   const searchParams = useSearchParams();
@@ -28,9 +29,8 @@ export default function ThankYouContent() {
     const phone = searchParams.get('phone') || '';
     const brand = searchParams.get('brand') || '';
 
-    const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-
-    if (!whatsappNumber) {
+    // Number .env (NEXT_PUBLIC_WHATSAPP_NUMBER) se constants.js ke through aata hai
+    if (!WHATSAPP_NUMBER) {
       console.error('NEXT_PUBLIC_WHATSAPP_NUMBER is not configured.');
       return;
     }
@@ -45,7 +45,7 @@ Hi! I want a free estimate.
     `.trim();
 
     const whatsappUrl =
-      `https://api.whatsapp.com/send/?phone=${whatsappNumber}` + `&text=${encodeURIComponent(whatsappMessage)}` + `&type=phone_number&app_absent=0`;
+      `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}` + `&text=${encodeURIComponent(whatsappMessage)}` + `&type=phone_number&app_absent=0`;
 
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   }, [searchParams]);
