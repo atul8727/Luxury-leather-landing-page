@@ -232,7 +232,8 @@ export default function Navbar() {
         </Container>
       </header>
 
-      <MobileMenu open={mobileOpen} onNavClick={handleNavClick} />
+      {/* <MobileMenu open={mobileOpen} onNavClick={handleNavClick} /> */}
+      <MobileMenu open={mobileOpen} onNavClick={handleItemClick} />
     </>
   );
 }

@@ -23,7 +23,8 @@ export default function MobileMenu({ open, onNavClick }) {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    onClick={(e) => onNavClick(e, item.href)}
+                    // onClick={(e) => onNavClick(e, item.href)}
+                    onClick={(e) => onNavClick(e, item)}
                     className="block py-4 text-[15px] font-medium tracking-[0.08em] text-navbar-text uppercase"
                   >
                     {item.label}

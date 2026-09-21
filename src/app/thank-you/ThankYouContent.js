@@ -12,9 +12,14 @@ export default function ThankYouContent() {
 
     whatsappOpened.current = true;
 
-    const email = searchParams.get('email') || '';
-    const phone = searchParams.get('phone') || '';
-    const brand = searchParams.get('brand') || '';
+    // const email = searchParams.get('email') || '';
+    // const phone = searchParams.get('phone') || '';
+    // const brand = searchParams.get('brand') || '';
+
+    const name = searchParams.get('name') || '';
+const email = searchParams.get('email') || '';
+const phone = searchParams.get('phone') || '';
+const brand = searchParams.get('brand') || '';
 
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
 
@@ -26,6 +31,7 @@ export default function ThankYouContent() {
     const whatsappMessage = `
 Hi! I want a free estimate.
 
+👤 Name: ${name}
 📧 Email: ${email}
 📞 Phone: ${phone}
 🏷️ Brand: ${brand}

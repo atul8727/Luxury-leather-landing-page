@@ -19,7 +19,8 @@ function MaisonIcon({ className = "" }) {
 
 export default function Maisons() {
   return (
-    <section className="bg-[#FFF8F2] py-20 lg:py-28">
+    // <section className="bg-[#FFF8F2] py-20 lg:py-28">
+    <section id="atelier" className="bg-[#FFF8F2] py-20 lg:py-28">
       <Container>
         <div className="flex flex-col items-center px-4 text-center sm:px-0">
           <MaisonIcon className="mb-3" />
