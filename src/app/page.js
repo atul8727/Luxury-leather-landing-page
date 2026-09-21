@@ -13,6 +13,7 @@ import MoreServices from '@/components/sections/MoreServices';
 import FAQ from '@/components/sections/FAQ';
 // import CTA from "@/components/sections/CTA";
 // import Contact from "@/components/sections/Contact";
+import WhatsAppButton from '@/components/ui/WhatsAppButton';
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <EnquiryModal />
+       <WhatsAppButton /> 
     </>
   );
 }

@@ -12,6 +12,18 @@ export default function ThankYouContent() {
 
     whatsappOpened.current = true;
 
+    // Ek enquiry ke liye WhatsApp sirf ek baar khule
+    // (refresh, remount ya Strict Mode par bhi dobara nahi khulega)
+    const key = `wa_opened:${searchParams.toString()}`;
+
+    try {
+      if (sessionStorage.getItem(key)) return;
+      sessionStorage.setItem(key, '1');
+    } catch {
+      // sessionStorage na chale to ref wala guard kaam karega
+    }
+
+    const name = searchParams.get('name') || '';
     const email = searchParams.get('email') || '';
     const phone = searchParams.get('phone') || '';
     const brand = searchParams.get('brand') || '';
@@ -26,6 +38,7 @@ export default function ThankYouContent() {
     const whatsappMessage = `
 Hi! I want a free estimate.
 
+👤 Name: ${name}
 📧 Email: ${email}
 📞 Phone: ${phone}
 🏷️ Brand: ${brand}

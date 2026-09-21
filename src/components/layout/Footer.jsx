@@ -1,17 +1,21 @@
+"use client";
+
 import Image from "next/image";
 import Container from "@/components/ui/Container";
+
 import { EmailGlyph, PhoneGlyph } from "@/components/ui/SocialGlyphs";
 import { SITE } from "@/lib/constants";
 import { CITIES } from "@/data/cities";
 import Link from "next/link";
+import { OPEN_ENQUIRY_MODAL_EVENT } from "@/components/modal/EnquiryModal";
 
 const NAV_LINKS = [
   { label: "Home", href: "#top" },
   { label: "Services", href: "#services" },
   { label: "Gallery", href: "#before-after" },
-  { label: "About Us", href: "#about-us" },
+  { label: "About Us", href: "#more-services" },
   { label: "Reviews", href: "#reviews" },
-  { label: "Blog", href: "#" },
+  // { label: "Blog", href: "#" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -28,7 +32,7 @@ export default function Footer() {
       <Container className="grid grid-cols-1 gap-12 py-16 sm:grid-cols-2 lg:grid-cols-4 lg:py-20">
         {/* Col 1: Logo & Brand description */}
         <div className="flex flex-col gap-5 lg:col-span-1">
-          <div className="relative h-28 w-[190px] sm:h-36 sm:w-[240px]">
+          {/* <div className="relative h-28 w-[190px] sm:h-36 sm:w-[240px]">
             <Image
               src="/images/LOGO-V2.png"
               alt={SITE.name}
@@ -36,7 +40,7 @@ export default function Footer() {
               sizes="240px"
               className="object-contain object-left"
             />
-          </div>
+          </div> */}
           <p className="max-w-xs font-inter text-[14px] leading-relaxed text-[#FFE6D1]/80">
             {SITE.name} is a team of experienced technicians focused on quality,
             efficient, and innovative solutions. We restore and care for leather
@@ -53,16 +57,22 @@ export default function Footer() {
             <div className="mt-1 h-[2px] w-full bg-[#FFE6D1]/30" />
           </div>
           <ul className="flex flex-col gap-3">
-            {NAV_LINKS.map((l) => (
-              <li key={l.label}>
-                <a
-                  href={l.href}
-                  className="font-inter text-[14px] text-[#FFE6D1]/80 transition-colors hover:text-[#FFE6D1]"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+          {NAV_LINKS.map((l) => (
+  <li key={l.label}>
+    <a
+      href={l.href}
+      onClick={(e) => {
+        if (l.label === "Contact") {
+          e.preventDefault();
+          window.dispatchEvent(new Event(OPEN_ENQUIRY_MODAL_EVENT));
+        }
+      }}
+      className="font-inter text-[14px] text-[#FFE6D1]/80 transition-colors hover:text-[#FFE6D1]"
+    >
+      {l.label}
+    </a>
+  </li>
+))}
           </ul>
         </div>
 
@@ -160,9 +170,9 @@ export default function Footer() {
              <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#FFE6D1]">
   Privacy Policy
 </Link>
-            <a href="https://luxuryleatherfurniturecare.com/terms-and-conditions/" className="transition-colors hover:text-[#FFE6D1]">
+            {/* <a href="https://luxuryleatherfurniturecare.com/terms-and-conditions/" className="transition-colors hover:text-[#FFE6D1]">
               Terms &amp; Conditions
-            </a>
+            </a> */}
           </div>
         </Container>
       </div>

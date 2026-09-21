@@ -201,12 +201,13 @@ export default function EnquiryModal() {
       /* ==========================================
          Pass enquiry details to thank-you page
       ========================================== */
-      const params = new URLSearchParams({
-        name,
-        email,
-        phone,
-        brand,
-      });
+  const params = new URLSearchParams({
+  name,
+  email,
+  phone,
+  brand,
+  ts: Date.now().toString(),
+});
 
       /* ==========================================
          Redirect
