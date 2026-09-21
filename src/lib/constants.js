@@ -1,3 +1,6 @@
+
+export const WHATSAPP_NUMBER = (process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '').replace(/\D/g, '');
+
 export const NAV_ITEMS = [
   { label: 'Services', href: '#services' },
   // {
@@ -54,10 +57,10 @@ export const SOCIAL_LINKS = [
     label: 'Facebook',
     href: 'https://facebook.com',
   },
-  {
-    label: 'WhatsApp',
-    href: 'https://wa.me/919289238864',
-  },
+{
+  label: 'WhatsApp',
+  href: `https://wa.me/${WHATSAPP_NUMBER}`,
+},
   {
     label: 'YouTube',
     href: 'https://youtube.com',
