@@ -1,6 +1,6 @@
 import Container from "@/components/ui/Container";
-import { SERVICES } from "@/data/services";
-import ServiceCard from "./ServiceCard";
+import { BAG_SERVICES, BAG_SERVICES_FOOTER_TEXT } from "@/data/bagServices";
+import ServiceCard from "@/components/sections/Services/ServiceCard";
 import Image from "next/image";
 
 const CARD_GRADIENT = "linear-gradient(180deg, #FFF2E6 0%, #FFE5CD 50%, #FFF2E6 100%)";
@@ -20,8 +20,9 @@ function ShoeIcon({ className = "" }) {
   );
 }
 
-export default function Services() {
-  const [intro, ...cards] = SERVICES;
+// Same layout as the default Services section, but with bags content/images.
+export default function BagServices() {
+  const [intro, ...cards] = BAG_SERVICES;
 
   return (
     <section id="services" className="bg-cream" style={{ background: "#FFF2E6" }}>
@@ -46,8 +47,7 @@ export default function Services() {
               {intro.description}
             </p>
             <p className="mt-6 text-[15px] font-semibold" style={{ color: "#101010" }}>
-              Book your appointment today and experience the difference a premium shoe care service
-              can make.
+              {BAG_SERVICES_FOOTER_TEXT}
             </p>
           </div>
         </Container>

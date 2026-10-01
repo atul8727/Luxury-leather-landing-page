@@ -2,7 +2,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import EnquiryModal from '@/components/modal/EnquiryModal';
 import Hero from '@/components/sections/Hero';
-import Services from '@/components/sections/Services';
+import BagServices from '@/components/sections/BagServices/BagServices';
 import Cities from '@/components/sections/Cities';
 import BeforeAfter from '@/components/sections/BeforeAfter';
 // import About from "@/components/sections/About";
@@ -15,13 +15,17 @@ import FAQ from '@/components/sections/FAQ';
 // import Contact from "@/components/sections/Contact";
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
 
+export const metadata = {
+  alternates: { canonical: '/bags' },
+};
+
 export default function Home() {
   return (
     <>
       <Navbar />
       <main>
         <Hero />
-        <Services />
+        <BagServices />
         {/* <Cities /> */}
         <BeforeAfter />
         {/* <About /> */}
