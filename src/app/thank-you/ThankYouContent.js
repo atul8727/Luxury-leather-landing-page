@@ -28,6 +28,8 @@ export default function ThankYouContent() {
     const email = searchParams.get('email') || '';
     const phone = searchParams.get('phone') || '';
     const brand = searchParams.get('brand') || '';
+    const state = searchParams.get('state') || '';
+    const city = searchParams.get('city') || '';
 
     // Number .env (NEXT_PUBLIC_WHATSAPP_NUMBER) se constants.js ke through aata hai
     if (!WHATSAPP_NUMBER) {
@@ -42,6 +44,8 @@ Hi! I want a free estimate.
 📧 Email: ${email}
 📞 Phone: ${phone}
 🏷️ Brand: ${brand}
+📍 State: ${state}
+🏙️ City: ${city}
     `.trim();
 
     const whatsappUrl =
