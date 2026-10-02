@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X, Loader2 } from 'lucide-react';
 
 import Button from '@/components/ui/Button';
+import StateCitySelect from '@/components/modal/StateCitySelect';
 
 const SESSION_KEY = 'll-enquiry-seen';
 
@@ -25,6 +26,8 @@ export default function EnquiryModal() {
     email: '',
     phone: '',
     brand: '',
+    state: '',
+    city: '',
   });
 
   const dialogRef = useRef(null);
@@ -112,6 +115,8 @@ export default function EnquiryModal() {
     const email = form.email.trim();
     const phone = form.phone.trim();
     const brand = form.brand.trim();
+    const state = form.state;
+    const city = form.city;
 
     /* ==========================================
        Validate Name
@@ -145,6 +150,22 @@ export default function EnquiryModal() {
       return;
     }
 
+    /* ==========================================
+       Validate State
+    ========================================== */
+    if (!state) {
+      setError('Please select your state.');
+      return;
+    }
+
+    /* ==========================================
+       Validate City
+    ========================================== */
+    if (!city) {
+      setError('Please select your city.');
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -161,6 +182,8 @@ export default function EnquiryModal() {
           email,
           phone,
           brand,
+          state,
+          city,
         }),
       });
 
@@ -201,13 +224,15 @@ export default function EnquiryModal() {
       /* ==========================================
          Pass enquiry details to thank-you page
       ========================================== */
-  const params = new URLSearchParams({
-  name,
-  email,
-  phone,
-  brand,
-  ts: Date.now().toString(),
-});
+      const params = new URLSearchParams({
+        name,
+        email,
+        phone,
+        brand,
+        state,
+        city,
+        ts: Date.now().toString(),
+      });
 
       /* ==========================================
          Redirect
@@ -262,7 +287,7 @@ export default function EnquiryModal() {
               duration: 0.3,
               ease: 'easeOut',
             }}
-            className="relative w-full max-w-[420px] overflow-hidden rounded-[22px] bg-cream shadow-2xl"
+            className="relative w-full max-w-[520px] overflow-hidden rounded-[22px] bg-cream shadow-2xl"
             onMouseDown={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -365,6 +390,17 @@ export default function EnquiryModal() {
                     className="w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-[14px] text-ink placeholder:text-ink-soft/60 focus:border-ink focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
                   />
                 </div>
+
+                {/* State + City */}
+                <StateCitySelect
+                  state={form.state}
+                  city={form.city}
+                  disabled={submitting}
+                  onChange={({ state, city }) => {
+                    setForm((prev) => ({ ...prev, state, city }));
+                    if (error) setError('');
+                  }}
+                />
 
                 {/* Error */}
                 {error && (
