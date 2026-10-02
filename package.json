@@ -2,13 +2,12 @@
   "name": "luxury-leather",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build:webpack": "next build --webpack",
-    "start": "next start",
-    "lint": "eslint"
-  },
+"scripts": {
+  "dev": "next dev",
+  "build": "next build --webpack",
+  "start": "next start",
+  "lint": "eslint"
+},
   "dependencies": {
     "country-state-city": "^3.2.1",
     "framer-motion": "^13.2.0",
