@@ -20,6 +20,8 @@ export async function POST(request) {
     const email = String(body.email || "").trim();
     const phone = String(body.phone || "").trim();
     const brand = String(body.brand || "").trim();
+    const state = String(body.state || "").trim();
+    const city = String(body.city || "").trim();
 
     // Validate name
     if (!name) {
@@ -62,6 +64,38 @@ export async function POST(request) {
         {
           ok: false,
           error: "Please tell us the product brand.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Validate state
+    if (!state) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Please select your state.",
+        },
+        { status: 400 },
+      );
+    }
+
+    // Validate city
+    if (!city) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Please select your city.",
+        },
+        { status: 400 },
+      );
+    }
+
+    if (state.length > 100 || city.length > 100) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "State or city is too long.",
         },
         { status: 400 },
       );
@@ -144,6 +178,8 @@ export async function POST(request) {
     const safeEmail = escapeHtml(email);
     const safePhone = escapeHtml(phone);
     const safeBrand = escapeHtml(brand);
+    const safeState = escapeHtml(state);
+    const safeCity = escapeHtml(city);
 
     // Send email
     await transporter.sendMail({
@@ -160,6 +196,8 @@ Customer Name: ${name}
 Customer Email: ${email}
 Phone Number: ${phone}
 Product Brand: ${brand}
+State: ${state}
+City: ${city}
 
 This enquiry was submitted through The Leather Laundry website.
       `.trim(),
@@ -252,6 +290,40 @@ This enquiry was submitted through The Leather Laundry website.
                 border-bottom: 1px solid #eeeeee;
               ">
                 ${safeBrand}
+              </td>
+            </tr>
+
+            <tr>
+              <td style="
+                padding: 12px;
+                font-weight: 600;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                State
+              </td>
+
+              <td style="
+                padding: 12px;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                ${safeState}
+              </td>
+            </tr>
+
+            <tr>
+              <td style="
+                padding: 12px;
+                font-weight: 600;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                City
+              </td>
+
+              <td style="
+                padding: 12px;
+                border-bottom: 1px solid #eeeeee;
+              ">
+                ${safeCity}
               </td>
             </tr>
 
