@@ -7,7 +7,19 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import BeforeAfterCard from "./BeforeAfterCard";
 import { BEFORE_AFTER } from "@/data/beforeAfter";
 
-export default function BeforeAfter() {
+const DEFAULT_EYEBROW = "Before & After";
+const DEFAULT_TITLE = "Real Work. Real Results.";
+const DEFAULT_DESCRIPTION =
+  "We offer expert leather repair service for all kinds of leather items, including wallets, jackets, handbags, shoes, furniture, etc. Our experienced professionals are proficient in repairing leather scratches, rips, faded colors, cuts, and other damages. To ensure long-lasting effects, we exclusively use top-notch supplies and equipment. We seamlessly play around with all kinds of materials like nubuck, patent, coated canvas, metallic leather, suede etc.";
+
+// Default = shoes content (home page "/").
+// /bags page par eyebrow, title, description aur items props se override hote hain.
+export default function BeforeAfter({
+  eyebrow = DEFAULT_EYEBROW,
+  title = DEFAULT_TITLE,
+  description = DEFAULT_DESCRIPTION,
+  items = BEFORE_AFTER,
+}) {
   const [pageIndex, setPageIndex] = useState(0);
   const [perPage, setPerPage] = useState(3);
 
@@ -31,11 +43,11 @@ export default function BeforeAfter() {
 
   const pages = useMemo(() => {
     const chunks = [];
-    for (let i = 0; i < BEFORE_AFTER.length; i += perPage) {
-      chunks.push(BEFORE_AFTER.slice(i, i + perPage));
+    for (let i = 0; i < items.length; i += perPage) {
+      chunks.push(items.slice(i, i + perPage));
     }
     return chunks;
-  }, [perPage]);
+  }, [perPage, items]);
 
   const totalPages = pages.length;
 
@@ -50,13 +62,13 @@ export default function BeforeAfter() {
   const safePageIndex = Math.min(pageIndex, totalPages - 1);
 
   return (
-  <section id="before-after" className="py-20 lg:py-28" style={{ backgroundColor: "#69483C" }}>
+    <section id="before-after" className="py-20 lg:py-28" style={{ backgroundColor: "#69483C" }}>
       <Container>
         <div className="flex flex-col items-center text-center">
           <SectionHeading
-            eyebrow="Before & After"
-            title="Real Work. Real Results."
-            description="We offer expert leather repair service for all kinds of leather items, including wallets, jackets, handbags, shoes, furniture, etc. Our experienced professionals are proficient in repairing leather scratches, rips, faded colors, cuts, and other damages. To ensure long-lasting effects, we exclusively use top-notch supplies and equipment. We seamlessly play around with all kinds of materials like nubuck, patent, coated canvas, metallic leather, suede etc."
+            eyebrow={eyebrow}
+            title={title}
+            description={description}
             titleColor="#FFE5CD"
             eyebrowColor="#FFE5CD"
             descriptionColor="#FFE5CD"
