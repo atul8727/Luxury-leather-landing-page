@@ -18,7 +18,21 @@ function ProcessIcon({ className = "" }) {
   );
 }
 
-export default function Process() {
+// Default = shoes (4 steps, home page "/").
+// /bags par 3 steps props se aate hain aur center mein dikhte hain.
+export default function Process({ steps = PROCESS_STEPS }) {
+  const isThree = steps.length === 3;
+
+  // 4 steps: purana grid (bilkul unchanged).
+  // 3 steps: flex + center, card size 4-step wale ke barabar.
+  const wrapperClass = isThree
+    ? "mx-auto mt-12 flex max-w-[1115px] flex-wrap justify-center gap-10 lg:gap-8"
+    : "mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8";
+
+  const itemClass = isThree
+    ? "flex w-full flex-col sm:w-[calc(50%-20px)] lg:w-[calc((100%-64px)/3)]"
+    : "flex flex-col";
+
   return (
     <section
       className="py-20 lg:py-28"
@@ -30,10 +44,7 @@ export default function Process() {
       <Container>
         <div className="flex flex-col items-center text-center">
           <ProcessIcon className="mb-2" />
-          <SectionHeading
-            eyebrow="4 Easy Steps"
-           
-          />
+          <SectionHeading eyebrow={`${steps.length} Easy Steps`} />
         </div>
         <h2
           className="mx-auto w-full max-w-[791px] px-4 text-center uppercase sm:px-0"
@@ -49,9 +60,9 @@ export default function Process() {
           Your Restoration Journey, Made Simple
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {PROCESS_STEPS.map((step) => (
-            <div key={step.number} className="flex flex-col">
+        <div className={wrapperClass}>
+          {steps.map((step) => (
+            <div key={step.number} className={itemClass}>
               <div className="relative aspect-square overflow-hidden rounded-[20px]">
                 <Image
                   src={step.image}
