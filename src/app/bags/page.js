@@ -14,6 +14,19 @@ import FAQ from '@/components/sections/FAQ';
 // import CTA from "@/components/sections/CTA";
 // import Contact from "@/components/sections/Contact";
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
+import { BAG_PROCESS_STEPS } from '@/data/bagProcess';
+
+import {
+  BAG_BEFORE_AFTER,
+  BAG_BEFORE_AFTER_EYEBROW,
+  BAG_BEFORE_AFTER_TITLE,
+  BAG_BEFORE_AFTER_DESCRIPTION,
+} from '@/data/bagBeforeAfter';
+import {
+  BAG_MAISONS,
+  BAG_MAISONS_EYEBROW,
+  BAG_MAISONS_TITLE,
+} from '@/data/bagMaisons';
 
 export const metadata = {
   alternates: { canonical: '/bags' },
@@ -27,10 +40,19 @@ export default function Home() {
         <Hero />
         <BagServices />
         {/* <Cities /> */}
-        <BeforeAfter />
+        <BeforeAfter
+          eyebrow={BAG_BEFORE_AFTER_EYEBROW}
+          title={BAG_BEFORE_AFTER_TITLE}
+          description={BAG_BEFORE_AFTER_DESCRIPTION}
+          items={BAG_BEFORE_AFTER}
+        />
         {/* <About /> */}
-        <Maisons />
-        <Process />
+        <Maisons
+          eyebrow={BAG_MAISONS_EYEBROW}
+          title={BAG_MAISONS_TITLE}
+          items={BAG_MAISONS}
+        />
+        <Process steps={BAG_PROCESS_STEPS} />
         <Reviews />
         <MoreServices />
         <FAQ />
@@ -39,7 +61,7 @@ export default function Home() {
       </main>
       <Footer />
       <EnquiryModal />
-       <WhatsAppButton /> 
+      <WhatsAppButton />
     </>
   );
 }

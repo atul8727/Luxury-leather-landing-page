@@ -17,15 +17,20 @@ function MaisonIcon({ className = "" }) {
   );
 }
 
-export default function Maisons() {
+// Default = shoes content (home page "/").
+// /bags page par eyebrow, title aur items props se override hote hain.
+export default function Maisons({
+  eyebrow = "Maisons We Restore",
+  title = "The Shoe Atelier Catalogue",
+  items = MAISONS,
+}) {
   return (
-    // <section className="bg-[#FFF8F2] py-20 lg:py-28">
     <section id="atelier" className="bg-[#FFF8F2] py-20 lg:py-28">
       <Container>
         <div className="flex flex-col items-center px-4 text-center sm:px-0">
           <MaisonIcon className="mb-3" />
           <p className="text-sm font-semibold uppercase tracking-wide text-ink-soft">
-            Maisons We Restore
+            {eyebrow}
           </p>
           <h2
             className="mx-auto mt-2 w-full max-w-[791px] text-center uppercase"
@@ -38,12 +43,12 @@ export default function Maisons() {
               color: "#614338",
             }}
           >
-            The Shoe Atelier Catalogue
+            {title}
           </h2>
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 md:gap-6">
-          {MAISONS.map((brand) => (
+          {items.map((brand) => (
             <div
               key={brand.id}
               className="relative aspect-square w-full max-w-[340px] justify-self-center overflow-hidden rounded-[20px] border border-ink/10 bg-white"

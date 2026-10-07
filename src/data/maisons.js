@@ -15,3 +15,4 @@ export const MAISONS = [
   { id: 14, name: "St. Weitzman", image: "/images/maisons/Group 74.png" },
   { id: 15, name: "Valentino", image: "/images/maisons/Group 75.png" },
 ];
+export const BAG_MAISONS = [];
