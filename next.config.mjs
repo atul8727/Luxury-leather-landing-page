@@ -6,6 +6,22 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: '**.behold.pictures',
+      },
+      {
+        protocol: 'https',
+        hostname: 'behold.pictures',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cdninstagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.fbcdn.net',
+      },
     ],
   },
 };
