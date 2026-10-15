@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
@@ -8,20 +7,26 @@ import SocialRail from './SocialRail';
 import { SITE } from '@/lib/constants';
 import { OPEN_ENQUIRY_MODAL_EVENT } from '@/components/modal/EnquiryModal';
 
+const VIDEO_ID = '906pebnHx4g';
+const VIDEO_SRC =
+  `https://www.youtube.com/embed/${VIDEO_ID}` +
+  `?si=mk5X0ub5Vbq9YWEp&controls=0` +
+  `&autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&playsinline=1&cc_load_policy=0&iv_load_policy=3&disablekb=1&rel=0`;
+
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-navbar pt-[76px] lg:pt-[84px]">
-      <div className="absolute inset-0">
-        <Image
-          src="/images/hero/hero-main.png"
-          alt="Artisan hand-finishing a restored leather sneaker"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
+    <section id="top" className="relative overflow-hidden pt-[76px] lg:pt-[84px]">
+      {/* Background YouTube video */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden [container-type:size]" aria-hidden="true">
+        <iframe
+          src={VIDEO_SRC}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          className="absolute top-0 left-1/2 -translate-x-1/2 border-0"
+          style={{ width: 'calc(max(100cqw, 177.78cqh) * 1.2)', height: 'calc(max(100cqh, 56.25cqw) * 1.2)' }}
         />
-
-        <div className="absolute inset-0 bg-[#241813]/55" />
       </div>
 
       <Container className="relative flex min-h-[560px] flex-col items-center justify-center py-20 text-center sm:min-h-[620px] lg:min-h-[680px] lg:py-28">
