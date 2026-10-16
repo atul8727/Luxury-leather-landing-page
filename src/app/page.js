@@ -26,7 +26,7 @@ export default function Home() {
         {/* <Cities /> */}
         <BeforeAfter />
         {/* <About /> */}
-        <InstagramReels />
+        {/* <InstagramReels /> */}
         <Maisons />
         <Process />
         <Reviews />
@@ -40,4 +40,4 @@ export default function Home() {
        <WhatsAppButton /> 
     </>
   );
-}
+}  

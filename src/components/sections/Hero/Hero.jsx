@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
@@ -83,14 +84,33 @@ export default function Hero() {
       id="top"
       className="relative overflow-hidden bg-[#1a1210] pt-[76px] lg:pt-[84px]"
     >
-      {/* Background YouTube video */}
+      {/* Background YouTube video & Fallback Image */}
       <div
         className="pointer-events-none absolute inset-0 overflow-hidden [container-type:size]"
         aria-hidden="true"
       >
+        {/* Poster / Fallback Image (video reload / load hone tak ye image dikhegi) */}
+        <div
+          className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
+            ready ? "opacity-0" : "opacity-100"
+          }`}
+        >
+          <Image
+            src="/images/hero/hero-main.png"
+            alt="Luxury Leather Care"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          {/* Dark overlay taaki text clearly readable rahe */}
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        {/* Video iframe container */}
         <div
           ref={hostRef}
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-700 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0 ${
+          className={`absolute top-1/2 left-1/2 z-1 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-700 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0 ${
             ready ? "opacity-100" : "opacity-0"
           }`}
           style={{
@@ -99,12 +119,12 @@ export default function Hero() {
           }}
         />
 
-        {/* Loading spinner (video start hone tak) */}
+        {/* Video overlay to maintain text contrast while video is playing */}
         <div
-          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${ready ? "opacity-0" : "opacity-100"}`}
-        >
-          <div className="h-9 w-9 animate-spin rounded-full border-2 border-white/25 border-t-white/80" />
-        </div>
+          className={`absolute inset-0 z-2 bg-black/35 transition-opacity duration-700 ${
+            ready ? "opacity-100" : "opacity-0"
+          }`}
+        />
 
         {/* Blocker: koi hover/click YouTube tak na pahunche */}
         <div className="pointer-events-auto absolute inset-0 z-10" />
