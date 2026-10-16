@@ -6,6 +6,7 @@ import BagServices from '@/components/sections/BagServices/BagServices';
 import Cities from '@/components/sections/Cities';
 import BeforeAfter from '@/components/sections/BeforeAfter';
 // import About from "@/components/sections/About";
+import InstagramReels from '@/components/sections/InstagramReels';
 import Maisons from '@/components/sections/Maisons';
 import Process from '@/components/sections/Process';
 import Reviews from '@/components/sections/Reviews';
@@ -47,6 +48,7 @@ export default function Home() {
           items={BAG_BEFORE_AFTER}
         />
         {/* <About /> */}
+        {/* <InstagramReels /> */}
         <Maisons
           eyebrow={BAG_MAISONS_EYEBROW}
           title={BAG_MAISONS_TITLE}

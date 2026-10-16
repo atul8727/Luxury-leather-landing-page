@@ -6,6 +6,7 @@ import Services from '@/components/sections/Services';
 import Cities from '@/components/sections/Cities';
 import BeforeAfter from '@/components/sections/BeforeAfter';
 // import About from "@/components/sections/About";
+import InstagramReels from '@/components/sections/InstagramReels';
 import Maisons from '@/components/sections/Maisons';
 import Process from '@/components/sections/Process';
 import Reviews from '@/components/sections/Reviews';
@@ -25,6 +26,7 @@ export default function Home() {
         {/* <Cities /> */}
         <BeforeAfter />
         {/* <About /> */}
+        {/* <InstagramReels /> */}
         <Maisons />
         <Process />
         <Reviews />
@@ -38,4 +40,4 @@ export default function Home() {
        <WhatsAppButton /> 
     </>
   );
-}
+}  
