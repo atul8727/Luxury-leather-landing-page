@@ -48,7 +48,7 @@ export default function Home() {
           items={BAG_BEFORE_AFTER}
         />
         {/* <About /> */}
-        {/* <InstagramReels /> */}
+        <InstagramReels />
         <Maisons
           eyebrow={BAG_MAISONS_EYEBROW}
           title={BAG_MAISONS_TITLE}
