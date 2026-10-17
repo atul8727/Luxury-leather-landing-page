@@ -9,15 +9,17 @@ export default function ReelCard({ reel, onOpen, isPaused = false }) {
   const [videoFailed, setVideoFailed] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
 
-  // Guarantee instant autoplay as soon as UI loads
+  // Guarantee instant autoplay as soon as UI loads on mobile & desktop
   useEffect(() => {
     const v = videoRef.current;
     if (!v || !reel.videoUrl || videoFailed) return;
 
     v.muted = true;
     v.defaultMuted = true;
+    v.playsInline = true;
     v.setAttribute("muted", "");
     v.setAttribute("playsinline", "");
+    v.setAttribute("webkit-playsinline", "");
 
     if (isPaused) {
       v.pause();
@@ -44,7 +46,7 @@ export default function ReelCard({ reel, onOpen, isPaused = false }) {
           src={reel.thumbnail}
           alt={reel.caption || "Instagram reel"}
           fill
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 75vw"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 85vw"
           className="object-cover"
           loading="lazy"
           onError={() => setImgFailed(true)}
@@ -64,6 +66,7 @@ export default function ReelCard({ reel, onOpen, isPaused = false }) {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
           preload="auto"
           aria-hidden="true"
           tabIndex={-1}
