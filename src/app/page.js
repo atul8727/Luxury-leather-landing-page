@@ -26,7 +26,7 @@ export default function Home() {
         {/* <Cities /> */}
         <BeforeAfter />
         {/* <About /> */}
-        {/* <InstagramReels /> */}
+        <InstagramReels />
         <Maisons />
         <Process />
         <Reviews />
