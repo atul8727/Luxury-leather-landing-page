@@ -25,7 +25,7 @@
   --color-gold: var(--color-gold);
   --color-line: var(--color-line);
   --font-display: var(--font-display);
-  --font-body: var(--font-body);
+  --font-body: var(--font-display);
 }
 
 * {

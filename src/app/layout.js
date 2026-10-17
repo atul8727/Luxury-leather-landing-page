@@ -1,20 +1,13 @@
-import { Roboto_Slab } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 
-// Single global font for the whole project.
-const robotoSlab = Roboto_Slab({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+// Self-hosted variable font for 100% offline-safe, hosting-friendly builds
+const robotoSlab = localFont({
+  src: "./fonts/RobotoSlab-VariableFont_wght.woff2",
   variable: "--font-display",
   display: "swap",
-});
-
-const robotoSlabBody = Roboto_Slab({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-body",
-  display: "swap",
+  weight: "100 900",
 });
 
 export const metadata = {
@@ -61,10 +54,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${robotoSlab.variable} ${robotoSlabBody.variable}`}
-    >
+    <html lang="en" className={robotoSlab.variable}>
       <body className="font-body bg-cream text-ink antialiased">
         {children}
 
