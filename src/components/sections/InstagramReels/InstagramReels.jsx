@@ -17,9 +17,9 @@ import {
 import ReelCard from "./ReelCard";
 import ReelModal from "./ReelModal";
 
-// Card widths: mobile ~1.3 cards, tablet (sm 2, md 3), desktop (lg/xl 4) (gap = 16px)
+// Card widths: mobile 1 centered card (86%), tablet (sm 2, md 3), desktop (lg/xl 4) (gap = 16px)
 const CARD_W =
-  "w-[76%] shrink-0 snap-start sm:w-[calc((100%-20px)/2)] md:w-[calc((100%-32px)/3)] lg:w-[calc((100%-48px)/4)] xl:w-[calc((100%-48px)/4)]";
+  "w-[86%] max-w-[360px] shrink-0 snap-center sm:snap-start sm:w-[calc((100%-20px)/2)] md:w-[calc((100%-32px)/3)] lg:w-[calc((100%-48px)/4)] xl:w-[calc((100%-48px)/4)]";
 
 export default function InstagramReels({
   eyebrow = REELS_EYEBROW,
@@ -33,7 +33,7 @@ export default function InstagramReels({
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(false);
 
-  // Optimized arrow update: only changes state when disabled status actually toggles
+  // Optimized arrow update
   const updateArrows = useCallback(() => {
     const el = railRef.current;
     if (!el) return;
@@ -65,7 +65,6 @@ export default function InstagramReels({
   const scrollByDir = (dir) => {
     const el = railRef.current;
     if (!el) return;
-    // Smooth scroll by ~80% of visible width
     el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: "smooth" });
   };
 
@@ -84,7 +83,7 @@ export default function InstagramReels({
 
         {hasItems ? (
           <div className="relative mt-12">
-            {/* Prev arrow */}
+            {/* Prev arrow (tablet/desktop) */}
             <button
               type="button"
               onClick={() => scrollByDir(-1)}
@@ -95,7 +94,7 @@ export default function InstagramReels({
               <ChevronLeft size={20} />
             </button>
 
-            {/* Next arrow */}
+            {/* Next arrow (tablet/desktop) */}
             <button
               type="button"
               onClick={() => scrollByDir(1)}
@@ -106,11 +105,11 @@ export default function InstagramReels({
               <ChevronRight size={20} />
             </button>
 
-            {/* Ultra-smooth hardware-accelerated horizontal scroll rail */}
+            {/* Centered mobile reel & desktop horizontal rail */}
             <div
               ref={railRef}
               onScroll={handleScroll}
-              className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 py-2 sm:mx-0 sm:px-0 overscroll-x-contain [will-change:scroll-position] transform-gpu"
+              className="no-scrollbar -mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[7%] py-2 sm:mx-0 sm:px-0 overscroll-x-contain [will-change:scroll-position] transform-gpu"
               style={{ WebkitOverflowScrolling: "touch" }}
             >
               {items.map((reel, index) => (
@@ -127,6 +126,8 @@ export default function InstagramReels({
                 </div>
               ))}
             </div>
+
+
           </div>
         ) : (
           <p className="mt-12 text-center text-ink-soft">
